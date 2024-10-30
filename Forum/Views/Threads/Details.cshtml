@@ -1,0 +1,33 @@
+﻿@model Forum.Models.Thread
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<h2>@Model.Title</h2>
+
+<p>@Model.Content</p>
+<p><strong>Data utworzenia:</strong> @Model.CreatedAt.ToString("dd/MM/yyyy")</p>
+
+<h3>Wiadomości</h3>
+@foreach (var message in Model.Messages)
+{
+    <div>
+        <p>@message.Content</p>
+        <p><small>@message.CreatedAt.ToString("dd/MM/yyyy")</small></p>
+    </div>
+}
+
+<h4>Dodaj wiadomość</h4>
+
+@using (Html.BeginForm("Create", "Messages"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+    <div class="form-group">
+        @Html.TextArea("Content", new { @class = "form-control", rows = 3 })
+        @Html.ValidationMessage("Content")
+    </div>
+
+    <button type="submit" class="btn btn-primary">Dodaj wiadomość</button>
+}

@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Forum.Models.Thread>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <div class="sidebar">
+        <h3>Menu</h3>
+        <ul class="category-list">
+            <li class="category">
+                <button class="toggleButton" onclick="toggleSubmenu('games-submenu', this)">Games</button>
+                <ul class="submenu" id="games-submenu">
+                    <li><a href="#">Gra 1</a></li>
+                    <li><a href="#">Gra 2</a></li>
+                    <li><a href="#">Gra 3</a></li>
+                </ul>
+            </li>
+            <li class="category">
+                <button class="toggleButton" onclick="toggleSubmenu('movies-submenu', this)">Movies</button>
+                <ul class="submenu" id="movies-submenu">
+                    <li><a href="#">Film 1</a></li>
+                    <li><a href="#">Film 2</a></li>
+                </ul>
+            </li>
+        </ul>
+        <hr />
+        <h3>Other</h3>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a class="btn btn-primary" href="@Url.Action("Create", "Threads")">Add thread</a><br />
+        }
+    </div>
+
+    <div class="content">
+        <div class="posts-section">
+            <h2>Posty Administratora</h2>
+            <div class="posts-grid admin-posts">
+                <div class="post admin-post">
+                    <a href="@Url.Action("ThreadDetails", "Forum", new { id = 1 })" style="text-decoration: none; color:white">
+                        <h4>Tytuł Posta 1</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    </a>
+                </div>
+                <div class="post admin-post">
+                    <h4>Tytuł Posta 2</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="post admin-post">
+                    <h4>Lorem</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </div>
+            <hr>
+            <h2>Posty Użytkowników</h2>
+            <div class="posts-grid user-posts">
+                @if (Model != null && Model.Any()) // Sprawdź, czy model nie jest null i czy zawiera elementy
+                {
+                    foreach (var thread in Model)
+                    {
+                        <div class="post user-post" style="text-decoration: none;cursor: pointer;" onclick="location.href='@Url.Action("Details", "Threads", new { id = thread.Id })'">
+                            <h4>@thread.Title</h4>
+                            <p>@thread.Content</p>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>Brak dostępnych wątków.</p>// Komunikat, gdy nie ma wątków
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Przycisk do zmiany skórki TBA: -->
+<!--<div class="theme-toggle">
+    <button id="theme-button" onclick="toggleThemeMenu()">⚙️</button>
+    <div id="theme-menu" class="theme-menu hidden">
+        <button onclick="setLightMode()">🌞 Jasny Tryb</button>
+        <button onclick="setDarkMode()">🌙 Ciemny Tryb</button>
+    </div>
+</div>-->
+
+<script>
+    function toggleSubmenu(submenuId, button) {
+        submenu = document.getElementById(submenuId);
+        submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+
+        if (button.style.backgroundColor !== 'rgb(0, 0, 0)') {
+            button.style.backgroundColor = 'rgb(0, 0, 0)';
+            button.style.color = 'white';
+        } else {
+            button.style.backgroundColor = 'white';
+            button.style.color = 'black';
+        }
+    }
+</script>
+
+

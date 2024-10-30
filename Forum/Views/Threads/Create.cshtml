@@ -1,0 +1,28 @@
+﻿@model Forum.Models.Thread
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Title)
+        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Content)
+        @Html.TextAreaFor(m => m.Content, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Wybierz kategorię")
+        @Html.DropDownList("CategoryId", new SelectList(ViewBag.Categories, "Id", "Name"), "Wybierz kategorię", new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Dodaj Wątek</button>
+}

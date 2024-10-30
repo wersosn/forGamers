@@ -1,0 +1,206 @@
+﻿/* Ogólny układ paska bocznego */
+.container {
+    display: flex;
+    width: 100%;
+}
+
+body {
+    background-color: #f4f4f4;
+}
+
+/* Pasek boczny */
+.sidebar {
+    width: 20%;
+    padding: 20px;
+    background-color: white;
+    border-right: 1px solid #ccc;
+    margin-left: 0;
+}
+
+    .sidebar h3 {
+        font-size: 1.5em;
+    }
+
+.category-list {
+    list-style: none;
+    padding: 0;
+}
+
+.category button {
+    width: 214px;
+    text-align: left;
+    background: none;
+    border: none;
+    border-radius: 3px;
+    font-size: 1em;
+    color: #333;
+    padding: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+    .category button:hover {
+        color: #4d2f76;
+    }
+
+.submenu {
+    list-style: none;
+    padding: 0;
+    display: none;
+    margin-left: 15px;
+}
+
+    .submenu li a {
+        text-decoration: none;
+        color: #666;
+        font-size: 0.9em;
+    }
+
+        .submenu li a:hover {
+            color: #4d2f76;
+        }
+
+/* Sekcja użytkownika */
+
+
+/* Sekcja postów */
+.content {
+    width: 80%;
+    padding: 20px;
+}
+
+.posts-section h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.post {
+    background-color: #e9ecef;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    min-width: 250px;
+}
+
+.posts-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Stylizacja postów administratora */
+.admin-posts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Odstępy między postami administratora */
+    text-decoration: none;
+}
+
+.admin-post {
+    flex: 1 1 30%;
+    min-width: 250px;
+    background-color: #4d2f76;
+    padding: 15px;
+    border-radius: 5px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/* Stylizacja postów użytkowników */
+.user-posts {
+    display: block; /* Posty użytkowników jeden pod drugim */
+    gap: 20px;
+    text-decoration: none;
+}
+
+.user-post {
+    background-color: #8a5b85;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    width: 100%; /* Post rozciąga się na całą szerokość */
+    box-sizing: border-box; /* Umożliwia poprawne wyświetlanie paddingu na 100% szerokości */
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.user-post:hover {
+    box-shadow: initial;
+}
+
+hr {
+    border: 1px solid #ccc;
+    margin: 20px 0;
+}
+
+/* Przyklejony przycisk */
+.theme-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+#theme-button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#theme-menu {
+    display: flex;
+    flex-direction: column;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+}
+
+    #theme-menu button {
+        background: none;
+        border: none;
+        font-size: 16px;
+        padding: 5px 0;
+        cursor: pointer;
+        color: #333;
+    }
+
+        #theme-menu button:hover {
+            color: #007bff;
+        }
+
+/* Ukrycie menu */
+.hidden {
+    display: none;
+}
+
+/* Stylizacja footer */
+.language-switch {
+    cursor: pointer;
+}
+
+    .language-switch:hover {
+        text-decoration: underline;
+        color: #4d2f76;
+    }
+
+/* Stylizacja paska wyszukiwania */
+.search-bar {
+    width: 250%;
+}
+
+.custom-search-btn {
+    background-color: transparent;
+    color: black;
+    border: none;
+}
+
+    .custom-search-btn:hover {
+        background-color: black;
+        color: white;
+    }
