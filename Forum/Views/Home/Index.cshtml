@@ -1,25 +1,28 @@
 ﻿@model IEnumerable<Forum.Models.Thread>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Strona główna";
 }
-
+<link rel="stylesheet" href="~/Content/buttons.css" />
+<link rel="stylesheet" href="~/Content/Site.css" />
 <div class="container">
     <div class="sidebar">
         <h3>Menu</h3>
         <ul class="category-list">
             <li class="category">
-                <button class="toggleButton" onclick="toggleSubmenu('games-submenu', this)">Games</button>
+                <button class="toggleButton" onclick="toggleSubmenu('games-submenu', this)">Gry</button>
                 <ul class="submenu" id="games-submenu">
-                    <li><a href="#">Gra 1</a></li>
-                    <li><a href="#">Gra 2</a></li>
-                    <li><a href="#">Gra 3</a></li>
+                    <li><a href="#">Genshin Impact</a></li>
+                    <li><a href="#">Honkai Star Rail</a></li>
+                    <li><a href="#">Life is Strange</a></li>
+                    <p></p>
                 </ul>
             </li>
             <li class="category">
-                <button class="toggleButton" onclick="toggleSubmenu('movies-submenu', this)">Movies</button>
-                <ul class="submenu" id="movies-submenu">
-                    <li><a href="#">Film 1</a></li>
-                    <li><a href="#">Film 2</a></li>
+                <button class="toggleButton" onclick="toggleSubmenu('game-engines', this)">Silniki do tworzenia gier</button>
+                <ul class="submenu" id="game-engines">
+                    <li><a href="#">Unity</a></li>
+                    <li><a href="#">Unreal Engine</a></li>
+                    <li><a href="#">Godot</a></li>
                 </ul>
             </li>
         </ul>
@@ -27,7 +30,7 @@
         <h3>Other</h3>
         @if (User.Identity.IsAuthenticated)
         {
-            <a class="btn btn-primary" href="@Url.Action("Create", "Threads")">Add thread</a><br />
+            <a class="btn-custom" href="@Url.Action("Create", "Threads")">Dodaj wątek</a><br />
         }
     </div>
 
@@ -36,28 +39,26 @@
             <h2>Posty Administratora</h2>
             <div class="posts-grid admin-posts">
                 <div class="post admin-post">
-                    <a href="@Url.Action("ThreadDetails", "Forum", new { id = 1 })" style="text-decoration: none; color:white">
-                        <h4>Tytuł Posta 1</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </a>
-                </div>
-                <div class="post admin-post">
-                    <h4>Tytuł Posta 2</h4>
+                    <h4>Post administacji 1</h4>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                 </div>
                 <div class="post admin-post">
-                    <h4>Lorem</h4>
+                    <h4>Post administacji 2</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="post admin-post">
+                    <h4>Post administacji 3</h4>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                 </div>
             </div>
             <hr>
-            <h2>Posty Użytkowników</h2>
+            <h2>Wątki Użytkowników</h2>
             <div class="posts-grid user-posts">
-                @if (Model != null && Model.Any()) // Sprawdź, czy model nie jest null i czy zawiera elementy
+                @if (Model != null && Model.Any())
                 {
                     foreach (var thread in Model)
                     {
-                        <div class="post user-post" style="text-decoration: none;cursor: pointer;" onclick="location.href='@Url.Action("Details", "Threads", new { id = thread.Id })'">
+                        <div class="post user-post" style="text-decoration: none; cursor: pointer; background-color: #ab9eb0; " onclick="location.href='@Url.Action("Details", "Threads", new { id = thread.Id })'">
                             <h4>@thread.Title</h4>
                             <p>@thread.Content</p>
                         </div>
@@ -65,7 +66,7 @@
                 }
                 else
                 {
-                    <p>Brak dostępnych wątków.</p>// Komunikat, gdy nie ma wątków
+                    <p>Brak dostępnych wątków.</p>
                 }
             </div>
         </div>

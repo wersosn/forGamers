@@ -61,9 +61,27 @@ body {
         }
 
 /* Sekcja użytkownika */
+.user-posts {
+    display: block;
+    gap: 20px;
+    text-decoration: none;
+}
 
+.user-post {
+    background-color: mediumpurple;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    text-decoration: none;
+}
 
-/* Sekcja postów */
+    .user-post:hover {
+        box-shadow: initial;
+    }
+
+/* Sekcja wątków */
 .content {
     width: 80%;
     padding: 20px;
@@ -88,11 +106,11 @@ body {
     gap: 20px;
 }
 
-/* Stylizacja postów administratora */
+/* Sekcja administracji */
 .admin-posts {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px; /* Odstępy między postami administratora */
+    gap: 20px;
     text-decoration: none;
 }
 
@@ -106,34 +124,12 @@ body {
     text-decoration: none;
 }
 
-/* Stylizacja postów użytkowników */
-.user-posts {
-    display: block; /* Posty użytkowników jeden pod drugim */
-    gap: 20px;
-    text-decoration: none;
-}
-
-.user-post {
-    background-color: #8a5b85;
-    padding: 15px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    width: 100%; /* Post rozciąga się na całą szerokość */
-    box-sizing: border-box; /* Umożliwia poprawne wyświetlanie paddingu na 100% szerokości */
-    color: #ffffff;
-    text-decoration: none;
-}
-
-.user-post:hover {
-    box-shadow: initial;
-}
-
 hr {
     border: 1px solid #ccc;
     margin: 20px 0;
 }
 
-/* Przyklejony przycisk */
+/* Przyklejony przycisk (do zmiany skórki TBA) */
 .theme-toggle {
     position: fixed;
     bottom: 20px;
@@ -204,3 +200,6 @@ hr {
         background-color: black;
         color: white;
     }
+
+
+/* Animacje */
