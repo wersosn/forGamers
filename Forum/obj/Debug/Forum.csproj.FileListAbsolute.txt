@@ -123,3 +123,5 @@ C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.AddedKategorieWatk
 C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.CategoryInCreate.resources
 C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.AddedUsername.resources
 C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.AddUserName.resources
+C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.Help.resources
+C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.Help1.resources

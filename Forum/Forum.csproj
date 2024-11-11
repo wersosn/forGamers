@@ -201,6 +201,14 @@
     <Compile Include="Migrations\202411111213042_AddUserName.designer.cs">
       <DependentUpon>202411111213042_AddUserName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202411111555153_Help.cs" />
+    <Compile Include="Migrations\202411111555153_Help.designer.cs">
+      <DependentUpon>202411111555153_Help.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411111603147_Help1.cs" />
+    <Compile Include="Migrations\202411111603147_Help1.designer.cs">
+      <DependentUpon>202411111603147_Help1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -230,6 +238,8 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\Styles\buttons.css" />
     <Content Include="Content\Icons\gamepad.png" />
+    <Content Include="Content\Styles\login.css" />
+    <Content Include="Content\Styles\register.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -337,6 +347,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202411111213042_AddUserName.resx">
       <DependentUpon>202411111213042_AddUserName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411111555153_Help.resx">
+      <DependentUpon>202411111555153_Help.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411111603147_Help1.resx">
+      <DependentUpon>202411111603147_Help1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

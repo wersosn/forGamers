@@ -3,7 +3,7 @@
     ViewData["Title"] = "Strona główna";
 }
 <link rel="stylesheet" href="~/Content/Styles/buttons.css" />
-<link rel="stylesheet" href="~/Content/Site.css" />
+<link rel="stylesheet" href="~/Content/site.css" />
 <div class="container">
     <div class="sidebar">
         <h3>Menu</h3>
@@ -58,7 +58,7 @@
                 {
                     foreach (var thread in Model)
                     {
-                        <div class="post user-post" style="text-decoration: none; cursor: pointer; background-color: #ab9eb0; " onclick="location.href='@Url.Action("Details", "Threads", new { id = thread.Id })'">
+                        <div class="post user-post" style="text-decoration: none; cursor: pointer;" onclick="location.href='@Url.Action("Details", "Threads", new { id = thread.Id })'">
                             <h4>@thread.Title</h4>
                             <p>@thread.Content</p>
                         </div>

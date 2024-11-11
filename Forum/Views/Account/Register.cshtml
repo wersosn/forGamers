@@ -1,9 +1,40 @@
 ﻿@model Forum.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Zarejestruj";
+    ViewBag.Title = "Rejestracja";
 }
+<link rel="stylesheet" href="~/Content/Styles/register.css" />
+<body>
+    <main class="main-container">
+        <div class="register-container">
+            <section class="register-section">
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <h2>Zarejestruj się</h2>
+                    <hr />
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email, new { @class = "form-label" })
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Password, new { @class = "form-label" })
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "form-label" })
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                    </div>
+                    <div class="form-actions">
+                        <input type="submit" value="Zarejestruj" class="btn btn-outline-dark btn-register" />
+                    </div>
+                }
+            </section>
+        </div>
+    </main>
+</body>
 
-<main aria-labelledby="title">
+<!--<main aria-labelledby="title">
     <h2 id="title">@ViewBag.Title.</h2>
 
     @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
@@ -16,12 +47,6 @@
             @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
             <div class="col-md-10">
                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="row">
-            @Html.LabelFor(m => m.Username, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
             </div>
         </div>
         <div class="row">
@@ -42,7 +67,7 @@
             </div>
         </div>
     }
-</main>
+</main>-->
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

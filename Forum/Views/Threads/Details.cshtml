@@ -2,19 +2,20 @@
 
 @{
     ViewBag.Title = Model.Title;
+    Model.UserName = Model.UserName.Split('@')[0];
 }
 
-<h2>@Model.Title | @Model.UserName</h2>
+<h2>@Model.Title | @Model.UserName | @Model.CreatedAt.ToString("dd/MM/yyyy")</h2>
 <p>@Model.Content</p>
-<p><strong>Data utworzenia:</strong> @Model.CreatedAt.ToString("dd/MM/yyyy")</p>
-
+<hr />
 <h3>Wiadomości</h3>
 @foreach (var message in Model.Messages)
 {
+    var userName = message.UserName.Split('@')[0];
     <div>
-        <p>Autor: @message.UserName | <small>@message.CreatedAt.ToString("dd/MM/yyyy")</small></p>
+        <p>Autor: @userName | <small>@message.CreatedAt.ToString("dd/MM/yyyy")</small></p>
         <p>@message.Content</p>
-    </div>
+    </div><hr />
 }
 
 @if (User.Identity.IsAuthenticated)
