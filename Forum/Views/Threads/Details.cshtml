@@ -4,8 +4,7 @@
     ViewBag.Title = Model.Title;
 }
 
-<h2>@Model.Title</h2>
-
+<h2>@Model.Title | @Model.UserName</h2>
 <p>@Model.Content</p>
 <p><strong>Data utworzenia:</strong> @Model.CreatedAt.ToString("dd/MM/yyyy")</p>
 
@@ -13,21 +12,26 @@
 @foreach (var message in Model.Messages)
 {
     <div>
+        <p>Autor: @message.UserName | <small>@message.CreatedAt.ToString("dd/MM/yyyy")</small></p>
         <p>@message.Content</p>
-        <p><small>@message.CreatedAt.ToString("dd/MM/yyyy")</small></p>
     </div>
 }
 
-<h4>Dodaj wiadomość</h4>
-
-@using (Html.BeginForm("Create", "Messages"))
+@if (User.Identity.IsAuthenticated)
 {
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(m => m.Id)
-    <div class="form-group">
-        @Html.TextArea("Content", new { @class = "form-control", rows = 3 })
-        @Html.ValidationMessage("Content")
-    </div>
+    <h4>Dodaj wiadomość</h4>
 
-    <button type="submit" class="btn btn-primary">Dodaj wiadomość</button>
+    @Html.BeginForm("Create", "Messages")
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.Hidden("threadId", Model.Id)
+
+        <div class="form-group">
+            @Html.TextArea("Content", new { @class = "form-control", rows = 3, placeholder = "Dodaj odpowiedź..." })
+            @Html.ValidationMessage("Content")
+        </div>
+
+        <button type="submit" class="btn btn-primary">Dodaj wiadomość</button>
+    }
 }

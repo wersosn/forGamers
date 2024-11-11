@@ -193,6 +193,14 @@
     <Compile Include="Migrations\202410301527407_CategoryInCreate.designer.cs">
       <DependentUpon>202410301527407_CategoryInCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202411111058258_AddedUsername.cs" />
+    <Compile Include="Migrations\202411111058258_AddedUsername.designer.cs">
+      <DependentUpon>202411111058258_AddedUsername.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411111213042_AddUserName.cs" />
+    <Compile Include="Migrations\202411111213042_AddUserName.designer.cs">
+      <DependentUpon>202411111213042_AddUserName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -220,8 +228,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
-    <Content Include="Content\buttons.css" />
-    <Content Include="Content\gamepad.png" />
+    <Content Include="Content\Styles\buttons.css" />
+    <Content Include="Content\Icons\gamepad.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -323,6 +331,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202410301527407_CategoryInCreate.resx">
       <DependentUpon>202410301527407_CategoryInCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411111058258_AddedUsername.resx">
+      <DependentUpon>202411111058258_AddedUsername.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411111213042_AddUserName.resx">
+      <DependentUpon>202411111213042_AddUserName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

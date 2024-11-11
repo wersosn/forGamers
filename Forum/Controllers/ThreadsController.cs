@@ -27,14 +27,14 @@ namespace Forum.Controllers
             if (ModelState.IsValid)
             {
                 thread.UserId = User.Identity.GetUserId();
+                thread.UserName = User.Identity.GetUserName();
                 thread.CategoryId = categoryId;
                 db.Threads.Add(thread);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
 
-            ViewBag.Categories = db.Categories.ToList();
-            //ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", thread.CategoryId); // Ustawienie kategorii w przypadku błędu
+            ViewBag.Categories = db.Categories.ToList();         
             return View(thread);
         }
 
