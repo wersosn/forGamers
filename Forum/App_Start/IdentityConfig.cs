@@ -39,7 +39,11 @@ namespace Forum
             : base(store)
         {
         }
-
+        public override async Task<bool> IsInRoleAsync(string userId, string role) // Sprawdzanie roli użytkownika
+        {
+            var user = await this.FindByIdAsync(userId);
+            return user?.Role == role;
+        }
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));

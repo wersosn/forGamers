@@ -125,3 +125,7 @@ C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.AddedUsername.reso
 C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.AddUserName.resources
 C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.Help.resources
 C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.Help1.resources
+C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.AdminPanel.resources
+C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.WatkiMinDlugosc.resources
+C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.WatkiMinDlugosc2.resources
+C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.AdminPanel2.resources

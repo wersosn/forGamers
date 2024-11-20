@@ -169,6 +169,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminPanelController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -209,12 +210,29 @@
     <Compile Include="Migrations\202411111603147_Help1.designer.cs">
       <DependentUpon>202411111603147_Help1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202411201532492_AdminPanel.cs" />
+    <Compile Include="Migrations\202411201532492_AdminPanel.designer.cs">
+      <DependentUpon>202411201532492_AdminPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411201534354_WatkiMinDlugosc.cs" />
+    <Compile Include="Migrations\202411201534354_WatkiMinDlugosc.designer.cs">
+      <DependentUpon>202411201534354_WatkiMinDlugosc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411201537303_WatkiMinDlugosc2.cs" />
+    <Compile Include="Migrations\202411201537303_WatkiMinDlugosc2.designer.cs">
+      <DependentUpon>202411201537303_WatkiMinDlugosc2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202411201650491_AdminPanel2.cs" />
+    <Compile Include="Migrations\202411201650491_AdminPanel2.designer.cs">
+      <DependentUpon>202411201650491_AdminPanel2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Thread.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -240,6 +258,7 @@
     <Content Include="Content\Icons\gamepad.png" />
     <Content Include="Content\Styles\login.css" />
     <Content Include="Content\Styles\register.css" />
+    <Content Include="Content\Styles\threads.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -297,6 +316,8 @@
     <Content Include="Views\Categories\Category.cshtml" />
     <Content Include="Views\Threads\Create.cshtml" />
     <Content Include="Views\Threads\Details.cshtml" />
+    <Content Include="Views\AdminPanel\Index.cshtml" />
+    <Content Include="Views\AdminPanel\EditUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -353,6 +374,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202411111603147_Help1.resx">
       <DependentUpon>202411111603147_Help1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411201532492_AdminPanel.resx">
+      <DependentUpon>202411201532492_AdminPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411201534354_WatkiMinDlugosc.resx">
+      <DependentUpon>202411201534354_WatkiMinDlugosc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411201537303_WatkiMinDlugosc2.resx">
+      <DependentUpon>202411201537303_WatkiMinDlugosc2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202411201650491_AdminPanel2.resx">
+      <DependentUpon>202411201650491_AdminPanel2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
