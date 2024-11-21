@@ -1,7 +1,26 @@
-﻿.main-content {
+﻿.main-container {
     padding: 60px 20px;
     margin: 0 auto;
     color: #edeef0;
+    position: relative;
+    left: 160%;
+    width: 120%;
+    accent-color: #5d5f64;
+}
+
+.main-content {
+    padding: 60px 20px;
+    margin: 0 auto;
+    color: #edeef0;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: left;
 }
 
 .main {
@@ -32,3 +51,24 @@
         background-color: #edeef0;
         color: #141415;
     }
+
+.btn-create {
+    margin-top: 10px;
+    background-color: #141415;
+    color: #edeef0;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    position: relative;
+    right: 50%;
+    left: 30%;
+    transition: background-color 0.3s, color 0.3s;
+}
+    .btn-create:hover {
+        background-color: #edeef0;
+        color: #141415;
+    }
+
+.list {
+    accent-color: #5d5f64;
+}

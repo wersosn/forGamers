@@ -3,26 +3,35 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<link rel="stylesheet" href="~/Content/Styles/threads.css" />
+<body>
+    <main class="main-container">
+        <div class="main">
+                <h2>Stwórz wątek</h2>
+                <hr />
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Title, "Tytuł")
+                        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+                    </div>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Content, "Treść")
+                        @Html.TextAreaFor(m => m.Content, new { @class = "form-control", rows = 5 })
+                        @Html.ValidationMessageFor(m => m.Content, "", new { @class = "text-danger" })
+                    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Title)
-        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
-    </div>
+                    <div class="form-group">
+                        @Html.Label("Wybierz kategorię")
+                        @Html.DropDownList("CategoryId", new SelectList(ViewBag.Categories, "Id", "Name"), "Wybierz kategorię", new { @class = "form-control list" })
+                    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Content)
-        @Html.TextAreaFor(m => m.Content, new { @class = "form-control" })
-    </div>
+                    <button type="submit" class="btn-create">Dodaj Wątek</button>
+                }
+        </div>
+    </main>
+</body>
 
-    <div class="form-group">
-        @Html.Label("Wybierz kategorię")
-        @Html.DropDownList("CategoryId", new SelectList(ViewBag.Categories, "Id", "Name"), "Wybierz kategorię", new { @class = "form-control" })
-    </div>
-
-    <button type="submit" class="btn btn-primary">Dodaj Wątek</button>
-}
