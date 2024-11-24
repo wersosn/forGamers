@@ -1,4 +1,5 @@
 ﻿using Forum.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace Forum.Controllers
         public ActionResult Index()
         {
             var threads = db.Threads.ToList();
+            ViewBag.IsAdmin = IsUserAdmin();
             return View(threads);
         }
 
@@ -28,6 +30,12 @@ namespace Forum.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        private bool IsUserAdmin()
+        {
+            var userId = User.Identity.GetUserId();
+            var user = db.Users.FirstOrDefault(u => u.Id == userId);
+            return user != null && user.Role == "admin";
         }
     }
 }

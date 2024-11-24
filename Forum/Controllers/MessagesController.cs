@@ -39,5 +39,133 @@ namespace Forum.Controllers
             }
             return RedirectToAction("Index", "Threads"); // W przypadku błędu
         }
+
+        // GET: Edycja wiadomości
+        [HttpGet]
+        [Authorize]
+        public ActionResult Edit(int id)
+        {
+            if (!IsUserAdmin() && !IsUserMod())
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            var message = db.Messages.FirstOrDefault(m => m.Id == id);
+
+            // Sprawdzenie, czy wiadomość istnieje
+            if (message == null)
+            {
+                return HttpNotFound();
+            }
+
+            // Sprawdzenie, czy użytkownik jest właścicielem wiadomości lub administratorem
+            if (message.UserId != User.Identity.GetUserId() && !IsUserAdmin() && !IsUserMod())
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            return View(message);
+        }
+
+        // POST: Edycja wiadomości
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Message editedMessage)
+        {
+            if (ModelState.IsValid)
+            {
+                var message = db.Messages.FirstOrDefault(m => m.Id == editedMessage.Id);
+
+                // Sprawdzenie, czy wiadomość istnieje
+                if (message == null)
+                {
+                    return HttpNotFound();
+                }
+
+                // Sprawdzenie, czy użytkownik jest właścicielem wiadomości lub administratorem
+                if (message.UserId != User.Identity.GetUserId() && !IsUserAdmin() && !IsUserMod())
+                {
+                    return new HttpUnauthorizedResult();
+                }
+
+                // Aktualizacja treści wiadomości
+                message.Content = editedMessage.Content;
+                db.SaveChanges();
+
+                return RedirectToAction("Details", "Threads", new { id = message.ThreadId });
+            }
+
+            return View(editedMessage);
+        }
+
+        // GET: Usuwanie wiadomości
+        [HttpGet]
+        [Authorize]
+        public ActionResult Delete(int id)
+        {
+            if (!IsUserAdmin() && !IsUserMod())
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            var message = db.Messages.FirstOrDefault(m => m.Id == id);
+
+            // Sprawdzenie, czy wiadomość istnieje
+            if (message == null)
+            {
+                return HttpNotFound();
+            }
+
+            // Sprawdzenie, czy użytkownik jest właścicielem wiadomości lub administratorem
+            if (message.UserId != User.Identity.GetUserId() && !IsUserAdmin() && !IsUserMod())
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            return View(message);
+        }
+
+        // POST: Usuwanie wiadomości
+        [HttpPost, ActionName("Delete")]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            var message = db.Messages.FirstOrDefault(m => m.Id == id);
+
+            // Sprawdzenie, czy wiadomość istnieje
+            if (message == null)
+            {
+                return HttpNotFound();
+            }
+
+            // Sprawdzenie, czy użytkownik jest właścicielem wiadomości lub administratorem
+            if (message.UserId != User.Identity.GetUserId() && !IsUserAdmin() && !IsUserMod())
+            {
+                return new HttpUnauthorizedResult();
+            }
+
+            // Usunięcie wiadomości z bazy danych
+            db.Messages.Remove(message);
+            db.SaveChanges();
+
+            return RedirectToAction("Details", "Threads", new { id = message.ThreadId });
+        }
+
+
+        private bool IsUserAdmin()
+        {
+            var userId = User.Identity.GetUserId();
+            var user = db.Users.FirstOrDefault(u => u.Id == userId);
+            return user != null && user.Role == "admin";
+        }
+
+        private bool IsUserMod()
+        {
+            var userId = User.Identity.GetUserId();
+            var user = db.Users.FirstOrDefault(u => u.Id == userId);
+            return user != null && user.Role == "moderator";
+        }
     }
 }

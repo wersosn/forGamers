@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Owin;
+using System;
 using System.Web.Hosting;
 
 [assembly: OwinStartupAttribute(typeof(Forum.Startup))]
@@ -13,9 +14,10 @@ namespace Forum
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            CreateRolesAndUsers();
+            //CreateRolesAndUsers();
+            CreateRoles();
         }
-        private void CreateRolesAndUsers()
+        /*private void CreateRolesAndUsers()
         {
             // Tworzenie roli i przypisanie jej do użytkownika
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
@@ -50,13 +52,33 @@ namespace Forum
                 };
 
                 var result = userManager.Create(user, "Admin123!");
-                userManager.AddToRole(user.Id, "admin");
+                userManager.AddToRole(user.Id, "admin");*/
 
-                /*if (result.Succeeded)
+        /*if (result.Succeeded)
+        {
+            // Przypisanie roli "Admin" do użytkownika
+            userManager.AddToRole(user.Id, "admin");
+        }*/
+        //}
+        //}
+        private void CreateRoles()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+                var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+                // Sprawdź, czy rola "admin" istnieje, jeśli nie, dodaj ją
+                if (!roleManager.RoleExists("admin"))
                 {
-                    // Przypisanie roli "Admin" do użytkownika
-                    userManager.AddToRole(user.Id, "admin");
-                }*/
+                    roleManager.Create(new IdentityRole("admin"));
+                }
+
+                // Sprawdź, czy rola "user" istnieje, jeśli nie, dodaj ją
+                if (!roleManager.RoleExists("user"))
+                {
+                    roleManager.Create(new IdentityRole("user"));
+                }
             }
         }
     }

@@ -16,9 +16,12 @@ namespace Forum.Controllers
         private ApplicationUserManager userManager;
 
         // Przechodzenie do panelu admina:
-        [Authorize(Roles = "admin")] // Dostęp tylko dla administratorów
         public ActionResult AdminPanel()
         {
+            if (!IsUserAdmin())
+            {
+                return new HttpUnauthorizedResult(); // Jeśli nie jest adminem, zwróć błąd 401
+            }
             userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(db));
             return View();
         }
@@ -26,6 +29,7 @@ namespace Forum.Controllers
         // Pobieranie listy użytkowników, aby wyświetlić ich role
         public async Task<ActionResult> UserList()
         {
+            
             // Pobierz wszystkich użytkowników
             var users = db.Users.ToList();
 
@@ -42,13 +46,17 @@ namespace Forum.Controllers
         // Wyświetlanie panelu administratora (lista użytkowników)
         public ActionResult Index()
         {
+            if (!IsUserAdmin())
+            {
+                return new HttpUnauthorizedResult(); // Jeśli nie jest adminem, zwróć błąd 401
+            }
             var users = db.Users.ToList(); // Pobranie wszystkich użytkowników
             return View(users); // Przekazanie użytkowników do widoku
         }
 
         // Widok do edytowania użytkownika
         public ActionResult EditUser(string id)
-        {
+        {          
             var user = db.Users.FirstOrDefault(u => u.Id == id); // Pobranie użytkownika po ID
             if (user == null)
             {
@@ -84,5 +92,18 @@ namespace Forum.Controllers
             db.SaveChanges();
             return RedirectToAction("Index"); // Powrót do widoku użytkowników
         }
+
+        private bool IsUserAdmin()
+        {
+            var userId = User.Identity.GetUserId();
+            var user = db.Users.FirstOrDefault(u => u.Id == userId);
+            return user != null && user.Role == "admin";
+        }
+
+
     }
+
+
+
+
 }

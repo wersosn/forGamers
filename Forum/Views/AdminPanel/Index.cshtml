@@ -22,7 +22,7 @@
                 <td>@user.UserName</td>
                 <td>@user.Email</td>
                 <td>
-                    @string.Join(", ", user.Roles) <!-- Dołączamy role, jeżeli jest ich więcej niż jedna -->
+                    @user.Role <!-- Dołączamy role, jeżeli jest ich więcej niż jedna -->
                 </td> <!-- Zmodyfikuj tę linię, aby uzyskać rolę użytkownika -->
                 <td>
                     @Html.ActionLink("Edytuj", "EditUser", new { id = user.Id }) |

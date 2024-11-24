@@ -12,15 +12,28 @@
 
     <div class="form-group">
         @Html.LabelFor(m => m.UserName)
-        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", ReadOnly = "true" })
     </div>
+
+    <div style="display: none;">
+        @Html.LabelFor(m => m.PasswordHash)
+        @Html.TextBoxFor(m => m.PasswordHash, new { @class = "form-control", ReadOnly = "true" })
+    </div>
+
+    <div style="display:none;">
+        @Html.LabelFor(m => m.SecurityStamp)
+        @Html.TextBoxFor(m => m.SecurityStamp, new { @class = "form-control", ReadOnly = "true" })
+    </div>
+
     <div class="form-group">
         @Html.LabelFor(m => m.Email)
-        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", ReadOnly = "true" })
     </div>
+
     <div class="form-group">
-        @Html.LabelFor(m => m.Roles)
-        @Html.TextBoxFor(m => m.Roles, new { @class = "form-control" })
+        @Html.LabelFor(m => m.Role)
+        @Html.DropDownListFor(m => m.Role, new SelectList(new[] { "user", "moderator", "admin" }), "Wybierz rolę", new { @class = "form-control" })
     </div>
+
     <button type="submit" class="btn btn-primary">Zapisz</button>
 }

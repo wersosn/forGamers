@@ -46,7 +46,7 @@
     left: 44%;
     transition: background-color 0.3s, color 0.3s;
 }
-
+    
     .btn-custom:hover {
         background-color: #edeef0;
         color: #141415;

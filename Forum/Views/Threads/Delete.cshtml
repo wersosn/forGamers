@@ -1,0 +1,20 @@
+﻿@model Forum.Models.Thread
+
+@{
+    ViewBag.Title = "Usuwanie Wątku";
+}
+<link rel="stylesheet" href="~/Content/Styles/threads.css" />
+<h2>Usuwanie Wątku</h2>
+<p>Czy na pewno chcesz usunąć ten wątek?</p>
+
+<div>
+    <h3>@Model.Title</h3>
+    <p>@Model.Content</p>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-danger">Usuń</button>
+    @Html.ActionLink("Anuluj", "Index", null, new { @class = "btn-custom" })
+}

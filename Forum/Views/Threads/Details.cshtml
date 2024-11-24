@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = Model.Title;
     Model.UserName = Model.UserName.Split('@')[0];
+    bool isAdmin = ViewBag.IsAdmin ?? false;
+    bool isMod = ViewBag.IsMod ?? false;
 }
 <link rel="stylesheet" href="~/Content/Styles/threads.css" />
 <main class="main-content">
@@ -15,7 +17,14 @@
         {
             var userName = message.UserName.Split('@')[0];
             <div>
-                <p><strong>@userName</strong> | @message.CreatedAt.ToString("dd/MM/yyyy")</p>
+                <p>
+                    <strong>@userName</strong> | @message.CreatedAt.ToString("dd/MM/yyyy")
+                    @if (User.Identity.IsAuthenticated && (isMod || isAdmin))
+                    {
+                        @Html.ActionLink("Edytuj", "Edit", "Messages", new { id = message.Id }, new { @class = "btn-custom", style= "margin:10px;text-decoration:none;" })
+                        @Html.ActionLink("Usuń", "Delete", "Messages", new { id = message.Id }, new { @class = "btn-custom", style= "text-decoration:none;" })
+                    }
+                </p>
                 <p>@message.Content</p>
             </div><hr />
         }
@@ -36,6 +45,13 @@
                 </div>
                 <button type="submit" class="btn-custom">Dodaj wiadomość</button>
             }
+            if (isAdmin)
+            {
+                <hr />
+                @Html.ActionLink("Edytuj", "Edit", new { id = Model.Id }, new { @class = "btn-custom", style="margin:10px;text-decoration:none;" })
+                @Html.ActionLink("Usuń", "Delete", new { id = Model.Id }, new { @class = "btn-custom", style="text-decoration:none", onclick = "return confirm('Czy na pewno chcesz usunąć ten wątek?');" })
+            }
         }
+
     </div>
 </main>
