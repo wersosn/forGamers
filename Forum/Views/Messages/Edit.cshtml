@@ -3,18 +3,26 @@
 @{
     ViewBag.Title = "Edycja Wiadomości";
 }
+<link rel="stylesheet" href="~/Content/Styles/threads.css" />
+<body>
+    <main class="main-container">
+        <div class="main">
+            <h2>Edycja Wątku</h2>
+            <hr />
+            <h2>Edycja Wiadomości</h2>
 
-<h2>Edycja Wiadomości</h2>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Content)
+                    @Html.TextAreaFor(m => m.Content, new { @class = "form-control", rows = 5 })
+                </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Content)
-        @Html.TextAreaFor(m => m.Content, new { @class = "form-control", rows = 5 })
-    </div>
-
-    <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
-    @Html.ActionLink("Anuluj", "Details", "Threads", new { id = Model.ThreadId }, new { @class = "btn btn-secondary" })
-}
+                <button type="submit" class="btn-create" style="margin-left: -20px;">Zapisz zmiany</button>
+                @Html.ActionLink("Anuluj", "Details", "Threads", new { id = Model.ThreadId }, new { @class = "btn-create", style="text-decoration: none;" });
+            }
+        </div>
+    </main>
+</body>

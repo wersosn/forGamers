@@ -3,8 +3,26 @@
     margin: 0 auto;
     color: #edeef0;
     position: relative;
+    left: 110%;
+    width: 120%;
+    accent-color: #5d5f64;
+}
+
+.main-container-2 {
+    padding: 60px 20px;
+    margin: 0 auto;
+    color: #edeef0;
+    position: relative;
     left: 160%;
     width: 120%;
+    accent-color: #5d5f64;
+}
+
+.main-container-del {
+    padding: 60px 20px;
+    margin: 0 auto;
+    color: #edeef0;
+    position: relative;
     accent-color: #5d5f64;
 }
 
@@ -48,6 +66,22 @@
 }
     
     .btn-custom:hover {
+        background-color: #edeef0;
+        color: #141415;
+    }
+
+.btn-custom-2 {
+    margin-top: 10px;
+    background-color: #141415;
+    color: #edeef0;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    position: relative;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+    .btn-custom-2:hover {
         background-color: #edeef0;
         color: #141415;
     }

@@ -26,6 +26,13 @@
                     <li><a href="#">Godot</a></li>
                 </ul>
             </li>
+            <li class="category">
+                <button class="toggleButton" onclick="toggleSubmenu('game-music', this)">Muzyka</button>
+                <ul class="submenu" id="game-music">
+                    <li><a href="#">Hoyo music</a></li>
+                    <li><a href="#">Lofi</a></li>
+                </ul>
+            </li>
         </ul>
         <hr />
         <h3>Other</h3>
@@ -34,9 +41,15 @@
             <a class="btn-custom" href="@Url.Action("Create", "Threads")">Dodaj wątek</a><br />
             if (isAdmin)
             {
+                <a class="btn-custom">Dodaj ogłoszenie</a><br />
                 <a class="btn-custom" href="@Url.Action("Index", "AdminPanel")">Panel admina</a><br />
             }
         }
+        <hr />
+        <h3>Statistics</h3>
+        <p>Zarejestrowani użytkownicy:  @ViewBag.NumberOfUsers</p>
+        <p>Ilość wątków:  @ViewBag.NumberOfThreads</p>
+        <p>Ilość wiadomości: @ViewBag.NumberOfMessages</p>
     </div>
 
     <div class="content">

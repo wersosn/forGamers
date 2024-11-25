@@ -15,6 +15,12 @@ namespace Forum.Controllers
         {
             var threads = db.Threads.ToList();
             ViewBag.IsAdmin = IsUserAdmin();
+            var numberOfUsers = db.Users.Count();
+            var numberOfThreads = db.Threads.Count();
+            var numberOfMessages = db.Messages.Count();
+            ViewBag.NumberOfUsers = numberOfUsers;
+            ViewBag.NumberOfThreads = numberOfThreads;
+            ViewBag.NumberOfMessages = numberOfMessages;
             return View(threads);
         }
 

@@ -5,7 +5,7 @@
 }
 <link rel="stylesheet" href="~/Content/Styles/threads.css" />
 <body>
-    <main class="main-container">
+    <main class="main-container-2">
         <div class="main">
             <h2>Edycja Wątku</h2>
             <hr />
@@ -28,7 +28,8 @@
                     @Html.DropDownList("CategoryId", new SelectList(ViewBag.Categories, "Id", "Name", Model.CategoryId), "Wybierz kategorię", new { @class = "form-control" })
                 </div>
 
-                <button type="submit" class="btn-create">Zapisz</button>
+                <button type="submit" class="btn-create" style="margin-left: -40px;">Zapisz zmiany</button>
+                @Html.ActionLink("Anuluj", "Details", "Threads", new { id = Model.Id }, new { @class = "btn-create", style = "text-decoration: none;" });
             }
         </div>
     </main>
