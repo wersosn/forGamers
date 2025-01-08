@@ -130,3 +130,5 @@ C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.WatkiMinDlugosc.re
 C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.WatkiMinDlugosc2.resources
 C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.AdminPanel2.resources
 C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.usuniecieRole.resources
+C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.zmianaModeli.resources
+C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.dodanieForów.resources

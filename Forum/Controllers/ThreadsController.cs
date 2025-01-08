@@ -14,26 +14,26 @@ namespace Forum.Controllers
         [Authorize]
         public ActionResult Create()
         {
-            ViewBag.Categories = db.Categories.ToList();
+            ViewBag.Forums = db.Forums.ToList();
             return View();
         }
 
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Thread thread, int categoryId)
+        public ActionResult Create(Thread thread, int forumId)
         {
             if (ModelState.IsValid && User.Identity.IsAuthenticated)
             {
                 thread.UserId = User.Identity.GetUserId();
                 thread.UserName = User.Identity.GetUserName();
-                thread.CategoryId = categoryId;
+                thread.ForumId = forumId;
                 db.Threads.Add(thread);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
 
-            ViewBag.Categories = db.Categories.ToList();         
+            ViewBag.Forums = db.Forums.ToList();         
             return View(thread);
         }
 
@@ -47,14 +47,14 @@ namespace Forum.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Categories = db.Categories.ToList();
+            ViewBag.Forums = db.Forums.ToList();
             return View(thread);
         }
 
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Thread thread, int categoryId)
+        public ActionResult Edit(Thread thread, int forumId)
         {
             if (ModelState.IsValid)
             {
@@ -63,13 +63,13 @@ namespace Forum.Controllers
                 {
                     existingThread.Title = thread.Title;
                     existingThread.Content = thread.Content;
-                    existingThread.CategoryId = categoryId;
+                    existingThread.ForumId = forumId;
                     db.SaveChanges();
                     return RedirectToAction("Index", "Home");
                 }
             }
 
-            ViewBag.Categories = db.Categories.ToList();
+            ViewBag.Forums = db.Forums.ToList();
             return View(thread);
         }
 
@@ -102,13 +102,13 @@ namespace Forum.Controllers
 
         public ActionResult Index()
         {
-            var threads = db.Threads.Include("Category").ToList(); // Pobierz wszystkie wątki z kategoriami
+            var threads = db.Threads.Include("Forum").ToList(); // Pobierz wszystkie wątki z kategoriami
             return View(threads);
         }
 
         public ActionResult Details(int id)
         {
-            var thread = db.Threads.Include("Messages").FirstOrDefault(t => t.Id == id);
+            var thread = db.Threads.Include("Messages").Include("Forum").FirstOrDefault(t => t.Id == id);
             return View(thread);
         }
 

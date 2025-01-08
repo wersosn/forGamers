@@ -14,12 +14,14 @@ namespace Forum.Controllers
         public ActionResult Index()
         {
             var threads = db.Threads.ToList();
+            var categories = db.Categories.ToList();
             var numberOfUsers = db.Users.Count();
             var numberOfThreads = db.Threads.Count();
             var numberOfMessages = db.Messages.Count();
             ViewBag.NumberOfUsers = numberOfUsers;
             ViewBag.NumberOfThreads = numberOfThreads;
             ViewBag.NumberOfMessages = numberOfMessages;
+            ViewBag.Categories = categories;
             return View(threads);
         }
 

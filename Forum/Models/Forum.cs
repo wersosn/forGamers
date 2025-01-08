@@ -6,14 +6,14 @@ using System.Web;
 
 namespace Forum.Models
 {
-    public class Category
+    public class Forum
     {
         public int Id { get; set; }
-
         [Required]
-        [StringLength(100)]
         public string Name { get; set; }
-
-        public virtual ICollection<Forum> Forums { get; set; }
+        public string Description { get; set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+        public ICollection<Thread> Threads { get; set; }
     }
 }

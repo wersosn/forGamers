@@ -230,9 +230,18 @@
     <Compile Include="Migrations\202501081132109_usuniecieRole.designer.cs">
       <DependentUpon>202501081132109_usuniecieRole.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202501081236471_zmianaModeli.cs" />
+    <Compile Include="Migrations\202501081236471_zmianaModeli.designer.cs">
+      <DependentUpon>202501081236471_zmianaModeli.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202501081241517_dodanieForów.cs" />
+    <Compile Include="Migrations\202501081241517_dodanieForów.designer.cs">
+      <DependentUpon>202501081241517_dodanieForów.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Forum.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Message.cs" />
@@ -325,6 +334,8 @@
     <Content Include="Views\Threads\Delete.cshtml" />
     <Content Include="Views\Messages\Edit.cshtml" />
     <Content Include="Views\Messages\Delete.cshtml" />
+    <Content Include="Views\AdminPanel\CreateCategory.cshtml" />
+    <Content Include="Views\AdminPanel\CreateForum.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -395,6 +406,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202501081132109_usuniecieRole.resx">
       <DependentUpon>202501081132109_usuniecieRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202501081236471_zmianaModeli.resx">
+      <DependentUpon>202501081236471_zmianaModeli.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202501081241517_dodanieForów.resx">
+      <DependentUpon>202501081241517_dodanieForów.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

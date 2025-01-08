@@ -8,30 +8,18 @@
     <div class="sidebar">
         <h3>Menu</h3>
         <ul class="category-list">
-            <li class="category">
-                <button class="toggleButton" onclick="toggleSubmenu('games-submenu', this)">Gry</button>
-                <ul class="submenu" id="games-submenu">
-                    <li><a href="#">Genshin Impact</a></li>
-                    <li><a href="#">Honkai Star Rail</a></li>
-                    <li><a href="#">Life is Strange</a></li>
-                    <p></p>
-                </ul>
-            </li>
-            <li class="category">
-                <button class="toggleButton" onclick="toggleSubmenu('game-engines', this)">Silniki do tworzenia gier</button>
-                <ul class="submenu" id="game-engines">
-                    <li><a href="#">Unity</a></li>
-                    <li><a href="#">Unreal Engine</a></li>
-                    <li><a href="#">Godot</a></li>
-                </ul>
-            </li>
-            <li class="category">
-                <button class="toggleButton" onclick="toggleSubmenu('game-music', this)">Muzyka</button>
-                <ul class="submenu" id="game-music">
-                    <li><a href="#">Hoyo music</a></li>
-                    <li><a href="#">Lofi</a></li>
-                </ul>
-            </li>
+            @foreach (var category in ViewBag.Categories as List<Forum.Models.Category>)
+            {
+                <li class="category">
+                    <button class="toggleButton" onclick="toggleSubmenu('@category.Name.Replace(" ", "_")', this)">@category.Name</button>
+                    <ul class="submenu" id="@category.Name.Replace(" ", "_")">
+                        @foreach (var forum in category.Forums)
+                        {
+                            <li><a href="#">@forum.Name</a></li>
+                        }
+                    </ul>
+                </li>
+            }
         </ul>
         <hr />
         <h3>Other</h3>

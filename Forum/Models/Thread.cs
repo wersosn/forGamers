@@ -22,8 +22,8 @@ namespace Forum.Models
         public string UserId { get; set; }
         public string UserName { get; set; }
 
-        public int CategoryId { get; set; }
-        public virtual Category Category { get; set; }
+        public int ForumId { get; set; }
+        public Forum Forum { get; set; }
         public virtual ICollection<Message> Messages { get; set; }
     }
 }
