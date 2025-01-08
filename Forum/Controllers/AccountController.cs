@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Forum.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Forum.Controllers
 {
@@ -17,15 +18,17 @@ namespace Forum.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private RoleManager<IdentityRole> _roleManager;
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, RoleManager<IdentityRole> roleManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         public ApplicationSignInManager SignInManager
@@ -151,10 +154,12 @@ namespace Forum.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Role = "user" };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    await UserManager.AddToRoleAsync(user.Id, "user");
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // Aby uzyskać więcej informacji o sposobie włączania potwierdzania konta i resetowaniu hasła, odwiedź stronę https://go.microsoft.com/fwlink/?LinkID=320771
@@ -394,6 +399,44 @@ namespace Forum.Controllers
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
+
+        // Przypisywanie roli:
+        // Przypisanie roli do użytkownika
+        public async Task<ActionResult> AssignRoleToUser(string userId, string roleName)
+        {
+            var user = await UserManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return HttpNotFound("Użytkownik nie został znaleziony.");
+            }
+
+            // Sprawdź, czy rola istnieje
+            var roleExist = await _roleManager.RoleExistsAsync(roleName);
+            if (!roleExist)
+            {
+                return HttpNotFound("Rola nie istnieje.");
+            }
+
+            // Przypisz rolę użytkownikowi
+            var result = await UserManager.AddToRoleAsync(userId, roleName);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index", "Home");  // Zmień na odpowiednią stronę
+            }
+            else
+            {
+                // Jeśli wystąpiły błędy, wyświetl je
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error);
+                }
+            }
+
+            return View();  // Możesz dodać odpowiedni widok
+        }
+
+
 
         //
         // GET: /Account/ExternalLoginFailure

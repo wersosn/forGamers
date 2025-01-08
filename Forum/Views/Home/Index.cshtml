@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<Forum.Models.Thread>
 @{
     ViewData["Title"] = "Strona główna";
-    bool isAdmin = ViewBag.IsAdmin ?? false;
 }
 <link rel="stylesheet" href="~/Content/Styles/buttons.css" />
 <link rel="stylesheet" href="~/Content/site.css" />
@@ -39,11 +38,12 @@
         @if (User.Identity.IsAuthenticated)
         {
             <a class="btn-custom" href="@Url.Action("Create", "Threads")">Dodaj wątek</a><br />
-            if (isAdmin)
+            if (User.IsInRole("admin"))
             {
                 <a class="btn-custom">Dodaj ogłoszenie</a><br />
                 <a class="btn-custom" href="@Url.Action("Index", "AdminPanel")">Panel admina</a><br />
             }
+
         }
         <hr />
         <h3>Statistics</h3>

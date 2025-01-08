@@ -14,7 +14,6 @@ namespace Forum.Controllers
         public ActionResult Index()
         {
             var threads = db.Threads.ToList();
-            ViewBag.IsAdmin = IsUserAdmin();
             var numberOfUsers = db.Users.Count();
             var numberOfThreads = db.Threads.Count();
             var numberOfMessages = db.Messages.Count();
@@ -37,11 +36,12 @@ namespace Forum.Controllers
 
             return View();
         }
-        private bool IsUserAdmin()
+
+        /*private bool IsUserAdmin()
         {
             var userId = User.Identity.GetUserId();
             var user = db.Users.FirstOrDefault(u => u.Id == userId);
             return user != null && user.Role == "admin";
-        }
+        }*/
     }
 }

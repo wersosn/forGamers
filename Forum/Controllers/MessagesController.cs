@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Security;
 using Forum.Models;
 using Microsoft.AspNet.Identity;
 
@@ -21,7 +22,7 @@ namespace Forum.Controllers
                 var currentUserName = User.Identity.GetUserName();
                 if (currentUserId == null)
                 {
-                    return RedirectToAction("Login", "Account"); // Jeśli użytkownik nie jest zalogowany, przekieruj do logowania
+                    return RedirectToAction("Login", "Account");
                 }
 
                 // Przypisz właściwości wiadomości
@@ -45,23 +46,12 @@ namespace Forum.Controllers
         [Authorize]
         public ActionResult Edit(int id)
         {
-            if (!IsUserAdmin() && !IsUserMod())
-            {
-                return new HttpUnauthorizedResult();
-            }
-
             var message = db.Messages.FirstOrDefault(m => m.Id == id);
 
             // Sprawdzenie, czy wiadomość istnieje
             if (message == null)
             {
                 return HttpNotFound();
-            }
-
-            // Sprawdzenie, czy użytkownik jest właścicielem wiadomości lub administratorem
-            if (message.UserId != User.Identity.GetUserId() && !IsUserAdmin() && !IsUserMod())
-            {
-                return new HttpUnauthorizedResult();
             }
 
             return View(message);
@@ -83,12 +73,6 @@ namespace Forum.Controllers
                     return HttpNotFound();
                 }
 
-                // Sprawdzenie, czy użytkownik jest właścicielem wiadomości lub administratorem
-                if (message.UserId != User.Identity.GetUserId() && !IsUserAdmin() && !IsUserMod())
-                {
-                    return new HttpUnauthorizedResult();
-                }
-
                 // Aktualizacja treści wiadomości
                 message.Content = editedMessage.Content;
                 db.SaveChanges();
@@ -104,23 +88,12 @@ namespace Forum.Controllers
         [Authorize]
         public ActionResult Delete(int id)
         {
-            if (!IsUserAdmin() && !IsUserMod())
-            {
-                return new HttpUnauthorizedResult();
-            }
-
             var message = db.Messages.FirstOrDefault(m => m.Id == id);
 
             // Sprawdzenie, czy wiadomość istnieje
             if (message == null)
             {
                 return HttpNotFound();
-            }
-
-            // Sprawdzenie, czy użytkownik jest właścicielem wiadomości lub administratorem
-            if (message.UserId != User.Identity.GetUserId() && !IsUserAdmin() && !IsUserMod())
-            {
-                return new HttpUnauthorizedResult();
             }
 
             return View(message);
@@ -140,32 +113,11 @@ namespace Forum.Controllers
                 return HttpNotFound();
             }
 
-            // Sprawdzenie, czy użytkownik jest właścicielem wiadomości lub administratorem
-            if (message.UserId != User.Identity.GetUserId() && !IsUserAdmin() && !IsUserMod())
-            {
-                return new HttpUnauthorizedResult();
-            }
-
             // Usunięcie wiadomości z bazy danych
             db.Messages.Remove(message);
             db.SaveChanges();
 
             return RedirectToAction("Details", "Threads", new { id = message.ThreadId });
-        }
-
-
-        private bool IsUserAdmin()
-        {
-            var userId = User.Identity.GetUserId();
-            var user = db.Users.FirstOrDefault(u => u.Id == userId);
-            return user != null && user.Role == "admin";
-        }
-
-        private bool IsUserMod()
-        {
-            var userId = User.Identity.GetUserId();
-            var user = db.Users.FirstOrDefault(u => u.Id == userId);
-            return user != null && user.Role == "moderator";
         }
     }
 }

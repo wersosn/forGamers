@@ -9,7 +9,6 @@ namespace Forum.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-
         // Wyświetlenie formularza do dodawania nowego wątku
         [HttpGet]
         [Authorize]
@@ -43,10 +42,6 @@ namespace Forum.Controllers
         [Authorize]
         public ActionResult Edit(int id)
         {
-            if (!IsUserAdmin())
-            {
-                return new HttpUnauthorizedResult();
-            }
             var thread = db.Threads.FirstOrDefault(t => t.Id == id);
             if (thread == null)
             {
@@ -83,10 +78,6 @@ namespace Forum.Controllers
         [Authorize]
         public ActionResult Delete(int id)
         {
-            if (!IsUserAdmin())
-            {
-                return new HttpUnauthorizedResult();
-            }
             var thread = db.Threads.FirstOrDefault(t => t.Id == id);
             if (thread == null)
             {
@@ -118,22 +109,8 @@ namespace Forum.Controllers
         public ActionResult Details(int id)
         {
             var thread = db.Threads.Include("Messages").FirstOrDefault(t => t.Id == id);
-            ViewBag.IsAdmin = IsUserAdmin();
-            ViewBag.IsMod = IsUserMod();
             return View(thread);
         }
 
-        private bool IsUserAdmin()
-        {
-            var userId = User.Identity.GetUserId();
-            var user = db.Users.FirstOrDefault(u => u.Id == userId);
-            return user != null && user.Role == "admin";
-        }
-        private bool IsUserMod()
-        {
-            var userId = User.Identity.GetUserId();
-            var user = db.Users.FirstOrDefault(u => u.Id == userId);
-            return user != null && user.Role == "moderator";
-        }
     }
 }

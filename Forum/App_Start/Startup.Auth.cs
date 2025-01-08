@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using Forum.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Forum
 {
@@ -18,6 +19,7 @@ namespace Forum
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+            app.CreatePerOwinContext<RoleManager<IdentityRole>>(CreateRoleManager);
 
             // Zezwalaj aplikacji na przechowywanie w pliku cookie informacji o zalogowanym użytkowniku
             // oraz na tymczasowe przechowywanie w pliku cookie informacji o użytkowniku logującym się przy użyciu dostawcy logowania innego producenta
@@ -63,6 +65,12 @@ namespace Forum
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+        }
+
+        private RoleManager<IdentityRole> CreateRoleManager(IdentityFactoryOptions<RoleManager<IdentityRole>> options, IOwinContext context)
+        {
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context.Get<ApplicationDbContext>()));
+            return roleManager;
         }
     }
 }

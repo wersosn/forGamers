@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace Forum.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class AdminPanelController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -18,10 +19,6 @@ namespace Forum.Controllers
         // Przechodzenie do panelu admina:
         public ActionResult AdminPanel()
         {
-            if (!IsUserAdmin())
-            {
-                return new HttpUnauthorizedResult(); // Jeśli nie jest adminem, zwróć błąd 401
-            }
             userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(db));
             return View();
         }
@@ -46,10 +43,6 @@ namespace Forum.Controllers
         // Wyświetlanie panelu administratora (lista użytkowników)
         public ActionResult Index()
         {
-            if (!IsUserAdmin())
-            {
-                return new HttpUnauthorizedResult(); // Jeśli nie jest adminem, zwróć błąd 401
-            }
             var users = db.Users.ToList(); // Pobranie wszystkich użytkowników
             return View(users); // Przekazanie użytkowników do widoku
         }
@@ -91,13 +84,6 @@ namespace Forum.Controllers
             db.Users.Remove(user); // Usuwanie użytkownika
             db.SaveChanges();
             return RedirectToAction("Index"); // Powrót do widoku użytkowników
-        }
-
-        private bool IsUserAdmin()
-        {
-            var userId = User.Identity.GetUserId();
-            var user = db.Users.FirstOrDefault(u => u.Id == userId);
-            return user != null && user.Role == "admin";
         }
 
 

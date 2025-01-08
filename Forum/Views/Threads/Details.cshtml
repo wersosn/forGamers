@@ -1,10 +1,11 @@
-﻿@model Forum.Models.Thread
+﻿@using Microsoft.AspNet.Identity;
+@model Forum.Models.Thread
 
 @{
     ViewBag.Title = Model.Title;
     Model.UserName = Model.UserName.Split('@')[0];
-    bool isAdmin = ViewBag.IsAdmin ?? false;
-    bool isMod = ViewBag.IsMod ?? false;
+    var currentUserId = User.Identity.GetUserId();
+    bool isAuthor = Model.UserId == currentUserId;
 }
 <link rel="stylesheet" href="~/Content/Styles/threads.css" />
 <main class="main-content">
@@ -19,10 +20,11 @@
             <div>
                 <p>
                     <strong>@userName</strong> | @message.CreatedAt.ToString("dd/MM/yyyy")
-                    @if (User.Identity.IsAuthenticated && (isMod || isAdmin))
+                    @if (User.IsInRole("moderator") || User.IsInRole("admin"))
                     {
-                        @Html.ActionLink("Edytuj", "Edit", "Messages", new { id = message.Id }, new { @class = "btn-custom-2", style= "margin:10px;text-decoration:none;" })
-                        @Html.ActionLink("Usuń", "Delete", "Messages", new { id = message.Id }, new { @class = "btn-custom-2", style= "text-decoration:none;" })
+                        @Html.ActionLink("Edytuj", "Edit", "Messages", new { id = message.Id }, new { @class = "btn-custom-2", style = "margin:10px;text-decoration:none;" })
+                        @Html.ActionLink("Usuń", "Delete", "Messages", new { id = message.Id }, new { @class = "btn-custom-2", style = "text-decoration:none;" })
+
                     }
                 </p>
                 <p>@message.Content</p>
@@ -45,11 +47,11 @@
                 </div>
                 <button type="submit" class="btn-custom">Dodaj wiadomość</button>
             }
-            if (isAdmin)
+            <hr />
+            if (User.IsInRole("admin") || isAuthor)
             {
-                <hr />
-                @Html.ActionLink("Edytuj", "Edit", new { id = Model.Id }, new { @class = "btn-custom", style="margin:10px;text-decoration:none;" })
-                @Html.ActionLink("Usuń", "Delete", new { id = Model.Id }, new { @class = "btn-custom", style="text-decoration:none;" })
+                @Html.ActionLink("Edytuj", "Edit", new { id = Model.Id }, new { @class = "btn-custom", style = "margin:10px;text-decoration:none;" })
+                @Html.ActionLink("Usuń", "Delete", new { id = Model.Id }, new { @class = "btn-custom", style = "text-decoration:none;" })
             }
         }
 

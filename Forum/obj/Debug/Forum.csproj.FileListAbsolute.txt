@@ -129,3 +129,4 @@ C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.AdminPanel.resourc
 C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.WatkiMinDlugosc.resources
 C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.WatkiMinDlugosc2.resources
 C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.AdminPanel2.resources
+C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.usuniecieRole.resources

@@ -14,53 +14,71 @@ namespace Forum
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            //CreateRolesAndUsers();
             CreateRoles();
+            CreateRolesAndUsers();
         }
-        /*private void CreateRolesAndUsers()
+        private async void CreateRolesAndUsers()
         {
-            // Tworzenie roli i przypisanie jej do użytkownika
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
-            // Sprawdź, czy rola "Admin" już istnieje
-            if (!roleManager.RoleExists("admin"))
+            // Tworzenie roli "admin" (jeśli nie istnieje)
+            var roleExist = await roleManager.RoleExistsAsync("admin");
+            if (!roleExist)
             {
-                // Tworzenie roli "Admin"
                 var role = new IdentityRole("admin");
-                roleManager.Create(role);
+                var result = await roleManager.CreateAsync(role);
+
+                if (!result.Succeeded)
+                {
+                    return;
+                }
             }
 
-            // Sprawdź, czy rola "User" już istnieje
-            if (!roleManager.RoleExists("user"))
-            {
-                // Tworzenie roli "User"
-                var role = new IdentityRole("user");
-                roleManager.Create(role);
-            }
-
-            // Sprawdź, czy użytkownik o podanym adresie e-mail istnieje
-            var user = userManager.FindByEmail("admin@admin.com");
+            // Tworzenie domyślnego admina
+            var user = await userManager.FindByEmailAsync("admin@admin.pl");
 
             if (user == null)
             {
-                // Tworzenie użytkownika
                 user = new ApplicationUser()
                 {
-                    UserName = "admin@admin.com",
-                    Email = "admin@admin.com",
+                    UserName = "admin@admin.pl",
+                    Email = "admin@admin.pl",
                 };
+                var result = await userManager.CreateAsync(user, "Admin123!");
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(user.Id, "admin");
+                }
+                else
+                {
+                    return;
+                }
+            }
 
-                var result = userManager.Create(user, "Admin123!");
-                userManager.AddToRole(user.Id, "admin");*/
+            // Tworzenie domyślnego moderatora:
+            var mod = await userManager.FindByEmailAsync("mod@mod.pl");
 
-        /*if (result.Succeeded)
-        {
-            // Przypisanie roli "Admin" do użytkownika
-            userManager.AddToRole(user.Id, "admin");
-        }*/
-        //}
-        //}
+            if (mod == null)
+            {
+                mod = new ApplicationUser()
+                {
+                    UserName = "mod@mod.pl",
+                    Email = "mod@mod.pl",
+                };
+                var result = await userManager.CreateAsync(mod, "Abc123!");
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(mod.Id, "moderator");
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+
+        }
         private void CreateRoles()
         {
             using (var context = new ApplicationDbContext())
@@ -78,6 +96,12 @@ namespace Forum
                 if (!roleManager.RoleExists("user"))
                 {
                     roleManager.Create(new IdentityRole("user"));
+                }
+
+                // Sprawdź, czy rola "moderator" istnieje, jeśli nie, dodaj ją
+                if (!roleManager.RoleExists("moderator"))
+                {
+                    roleManager.Create(new IdentityRole("moderator"));
                 }
             }
         }
