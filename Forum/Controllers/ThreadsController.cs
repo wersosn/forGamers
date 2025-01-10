@@ -102,13 +102,18 @@ namespace Forum.Controllers
 
         public ActionResult Index()
         {
-            var threads = db.Threads.Include("Forum").ToList(); // Pobierz wszystkie wątki z kategoriami
+            var threads = db.Threads.Include("Forum").ToList();
             return View(threads);
         }
 
         public ActionResult Details(int id)
         {
             var thread = db.Threads.Include("Messages").Include("Forum").FirstOrDefault(t => t.Id == id);
+            var currentUserId = User.Identity.GetUserId();
+            var isModerator = db.ForumModerators
+                                .Any(fm => fm.ForumId == thread.ForumId && fm.UserId == currentUserId);
+
+            ViewBag.IsModerator = isModerator;
             return View(thread);
         }
 

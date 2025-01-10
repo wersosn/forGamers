@@ -76,8 +76,6 @@ namespace Forum
                     return;
                 }
             }
-
-
         }
         private void CreateRoles()
         {

@@ -20,7 +20,7 @@
             <div>
                 <p>
                     <strong>@userName</strong> | @message.CreatedAt.ToString("dd/MM/yyyy")
-                    @if (User.IsInRole("moderator") || User.IsInRole("admin"))
+                    @if (ViewBag.IsModerator || User.IsInRole("admin"))
                     {
                         @Html.ActionLink("Edytuj", "Edit", "Messages", new { id = message.Id }, new { @class = "btn-custom-2", style = "margin:10px;text-decoration:none;" })
                         @Html.ActionLink("Usuń", "Delete", "Messages", new { id = message.Id }, new { @class = "btn-custom-2", style = "text-decoration:none;" })

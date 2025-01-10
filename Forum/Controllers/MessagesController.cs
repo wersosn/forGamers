@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using System.Web.Security;
 using Forum.Models;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
+using System.Data.Entity;
+
 
 namespace Forum.Controllers
 {
@@ -11,34 +15,28 @@ namespace Forum.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        // POST: Tworzenie wiadomości
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(int threadId, Message message)
         {
             if (ModelState.IsValid)
             {
-                // Pobierz bieżącego użytkownika
                 var currentUserId = User.Identity.GetUserId();
                 var currentUserName = User.Identity.GetUserName();
                 if (currentUserId == null)
                 {
                     return RedirectToAction("Login", "Account");
                 }
-
-                // Przypisz właściwości wiadomości
                 message.ThreadId = threadId;
                 message.UserId = currentUserId;
                 message.UserName = currentUserName;
                 message.CreatedAt = DateTime.Now;
-
-                // Dodaj wiadomość do bazy danych
                 db.Messages.Add(message);
                 db.SaveChanges();
-
-                // Przekierowanie do szczegółów wątku
                 return RedirectToAction("Details", "Threads", new { id = threadId });
             }
-            return RedirectToAction("Index", "Threads"); // W przypadku błędu
+            return RedirectToAction("Details", "Threads");
         }
 
         // GET: Edycja wiadomości
@@ -46,12 +44,21 @@ namespace Forum.Controllers
         [Authorize]
         public ActionResult Edit(int id)
         {
-            var message = db.Messages.FirstOrDefault(m => m.Id == id);
-
-            // Sprawdzenie, czy wiadomość istnieje
+            var message = db.Messages
+                    .Include(m => m.Thread)
+                    .Include(m => m.Thread.Forum)
+                    .FirstOrDefault(m => m.Id == id);
             if (message == null)
             {
                 return HttpNotFound();
+            }
+
+            var forum = message.Thread.Forum;
+            var currentUserId = User.Identity.GetUserId();
+            bool isModerator = db.ForumModerators.Any(fm => fm.ForumId == forum.Id && fm.UserId == currentUserId);
+            if (!(isModerator || User.IsInRole("admin")))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden, "Nie masz uprawnień do edycji tej wiadomości.");
             }
 
             return View(message);
@@ -65,15 +72,23 @@ namespace Forum.Controllers
         {
             if (ModelState.IsValid)
             {
-                var message = db.Messages.FirstOrDefault(m => m.Id == editedMessage.Id);
-
-                // Sprawdzenie, czy wiadomość istnieje
+                var message = db.Messages
+                    .Include(m => m.Thread)
+                    .Include(m => m.Thread.Forum)
+                    .FirstOrDefault(m => m.Id == editedMessage.Id);
                 if (message == null)
                 {
                     return HttpNotFound();
                 }
 
-                // Aktualizacja treści wiadomości
+                var forum = message.Thread.Forum;
+                var currentUserId = User.Identity.GetUserId();
+                bool isModerator = db.ForumModerators.Any(fm => fm.ForumId == forum.Id && fm.UserId == currentUserId);
+                if (!(isModerator || User.IsInRole("admin")))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.Forbidden, "Nie masz uprawnień do edycji tej wiadomości.");
+                }
+
                 message.Content = editedMessage.Content;
                 db.SaveChanges();
 
@@ -88,12 +103,21 @@ namespace Forum.Controllers
         [Authorize]
         public ActionResult Delete(int id)
         {
-            var message = db.Messages.FirstOrDefault(m => m.Id == id);
-
-            // Sprawdzenie, czy wiadomość istnieje
+            var message = db.Messages
+                .Include(m => m.Thread)
+                .Include(m => m.Thread.Forum)
+                .FirstOrDefault(m => m.Id == id);
             if (message == null)
             {
                 return HttpNotFound();
+            }
+
+            var forum = message.Thread.Forum;
+            var currentUserId = User.Identity.GetUserId();
+            bool isModerator = db.ForumModerators.Any(fm => fm.ForumId == forum.Id && fm.UserId == currentUserId);
+            if (!(isModerator || User.IsInRole("admin")))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden, "Nie masz uprawnień do usunięcia tej wiadomości.");
             }
 
             return View(message);
@@ -105,15 +129,23 @@ namespace Forum.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var message = db.Messages.FirstOrDefault(m => m.Id == id);
-
-            // Sprawdzenie, czy wiadomość istnieje
+            var message = db.Messages
+                .Include(m => m.Thread)
+                .Include(m => m.Thread.Forum)
+                .FirstOrDefault(m => m.Id == id);
             if (message == null)
             {
                 return HttpNotFound();
             }
 
-            // Usunięcie wiadomości z bazy danych
+            var forum = message.Thread.Forum;
+            var currentUserId = User.Identity.GetUserId();
+            bool isModerator = db.ForumModerators.Any(fm => fm.ForumId == forum.Id && fm.UserId == currentUserId);
+            if (!(isModerator || User.IsInRole("admin")))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden, "Nie masz uprawnień do usunięcia tej wiadomości.");
+            }
+
             db.Messages.Remove(message);
             db.SaveChanges();
 

@@ -5,7 +5,8 @@
 }
 
 <h2>Panel Administratora</h2>
-
+<hr />
+<h3>Zarządzanie użytkownikami</h3>
 <table class="table">
     <thead>
         <tr>
@@ -22,13 +23,73 @@
                 <td>@user.UserName</td>
                 <td>@user.Email</td>
                 <td>
-                    Rola <!-- Dołączamy role, jeżeli jest ich więcej niż jedna -->
-                </td> <!-- Zmodyfikuj tę linię, aby uzyskać rolę użytkownika -->
+                    @if (user.Roles.Any())
+                    {
+                        foreach (var role in user.Roles)
+                        {
+                            <span>@role.RoleId</span>
+                        }
+                    }
+                    else
+                    {
+                        <span>Brak ról</span>
+                    }
+                </td>
                 <td>
                     @Html.ActionLink("Edytuj", "EditUser", new { id = user.Id }) |
-                    @Html.ActionLink("Usuń", "DeleteUser", new { id = user.Id }, new { onclick = "return confirm('Czy na pewno chcesz usunąć tego użytkownika?');" })
+                    @Html.ActionLink("Usuń", "DeleteUser", new { id = user.Id },
+                        new { onclick = "return confirm('Czy na pewno chcesz usunąć tego użytkownika?');" })
                 </td>
             </tr>
         }
     </tbody>
 </table>
+<hr />
+<h3>Kategorie</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nazwa kategorii</th>
+            <th>Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in ViewBag.Categories as IEnumerable<Forum.Models.Category>)
+        {
+            <tr>
+                <td>@category.Name</td>
+                <td>
+                    <a href="@Url.Action("EditCategory", "Categories", new { id = category.Id })">Edytuj</a> |
+                    <a href="@Url.Action("DeleteCategory", "Categories", new { id = category.Id })" onclick="return confirm('Czy na pewno chcesz usunąć tę kategorię?');">Usuń</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="@Url.Action("CreateCategory", "Categories")" class="btn btn-success">Dodaj kategorię</a>
+
+<hr />
+<h3>Fora</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nazwa Forum</th>
+            <th>Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var forum in ViewBag.Forums as IEnumerable<Forum.Models.Forum>)
+        {
+            <tr>
+                <td>@forum.Name</td>
+                <td>
+                    <a href="@Url.Action("ManageModerators", "Forums", new { forumId = forum.Id })">Zarządzaj moderatorami</a> |
+                    <a href="@Url.Action("EditForum", "Forums", new { id = forum.Id })">Edytuj</a> |
+                    <a href="@Url.Action("DeleteForum", "Forums", new { id = forum.Id })" onclick="return confirm('Czy na pewno chcesz usunąć to forum?');">Usuń</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="@Url.Action("CreateForum", "Forums")" class="btn btn-success">Dodaj forum</a>
+

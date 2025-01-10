@@ -15,5 +15,6 @@ namespace Forum.Models
         public int CategoryId { get; set; }
         public Category Category { get; set; }
         public ICollection<Thread> Threads { get; set; }
+        public virtual ICollection<ForumModerator> Moderators { get; set; }
     }
 }

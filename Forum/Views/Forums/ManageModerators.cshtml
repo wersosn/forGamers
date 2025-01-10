@@ -1,0 +1,20 @@
+﻿@model Forum.Models.ManageModerators
+
+<h2>Zarządzaj moderatorami dla forum: @Model.Forum.Name</h2>
+
+@using (Html.BeginForm())
+{
+    <div>
+        @foreach (var user in Model.AllUsers)
+        {
+            <div>
+                <label>
+                    <input type="checkbox" name="selectedModerators" value="@user.Id"
+                           @(Model.AssignedModeratorIds.Contains(user.Id) ? "checked=\"checked\"" : "") />
+                    @user.UserName
+                </label>
+            </div>
+        }
+    </div>
+    <button type="submit" class="btn btn-primary">Zapisz</button>
+}

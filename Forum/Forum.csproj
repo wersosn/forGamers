@@ -171,6 +171,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminPanelController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\ForumsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
@@ -238,11 +239,17 @@
     <Compile Include="Migrations\202501081241517_dodanieForów.designer.cs">
       <DependentUpon>202501081241517_dodanieForów.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202501101318440_ForumModerators.cs" />
+    <Compile Include="Migrations\202501101318440_ForumModerators.designer.cs">
+      <DependentUpon>202501101318440_ForumModerators.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Forum.cs" />
+    <Compile Include="Models\ForumModerator.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageModerators.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Thread.cs" />
@@ -325,7 +332,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Categories\Category.cshtml" />
     <Content Include="Views\Threads\Create.cshtml" />
     <Content Include="Views\Threads\Details.cshtml" />
     <Content Include="Views\AdminPanel\Index.cshtml" />
@@ -334,8 +340,9 @@
     <Content Include="Views\Threads\Delete.cshtml" />
     <Content Include="Views\Messages\Edit.cshtml" />
     <Content Include="Views\Messages\Delete.cshtml" />
-    <Content Include="Views\AdminPanel\CreateCategory.cshtml" />
-    <Content Include="Views\AdminPanel\CreateForum.cshtml" />
+    <Content Include="Views\Categories\CreateCategory.cshtml" />
+    <Content Include="Views\Forums\CreateForum.cshtml" />
+    <Content Include="Views\Forums\ManageModerators.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -412,6 +419,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202501081241517_dodanieForów.resx">
       <DependentUpon>202501081241517_dodanieForów.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202501101318440_ForumModerators.resx">
+      <DependentUpon>202501101318440_ForumModerators.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
