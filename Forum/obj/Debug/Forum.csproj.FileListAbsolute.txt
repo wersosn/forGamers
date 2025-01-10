@@ -133,3 +133,4 @@ C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.usuniecieRole.reso
 C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.zmianaModeli.resources
 C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.dodanieForów.resources
 C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.ForumModerators.resources
+C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.ogloszenia.resources

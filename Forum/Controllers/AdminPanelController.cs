@@ -27,12 +27,16 @@ namespace Forum.Controllers
         public ActionResult Index()
         {
             var users = db.Users.ToList();
+            var threads = db.Threads.ToList();
+            var messages = db.Messages.ToList();
             var forums = db.Forums.ToList();
             var categories = db.Categories.ToList();
             var roles = db.Roles.Select(r => new { r.Id, r.Name }).ToList();
             ViewBag.Roles = roles;
             ViewBag.Forums = forums;
             ViewBag.Categories = categories;
+            ViewBag.Threads = threads;
+            ViewBag.Messages = messages;
             return View(users);
         }
 
@@ -50,6 +54,12 @@ namespace Forum.Controllers
                 RoleNames = userRole.Roles.Select(role => db.Roles.FirstOrDefault(r => r.Name == role)?.Name ?? "Brak roli").ToList()
             }).ToList();
             return View(userRoleNames);
+        }
+
+        // Tworzenie ogłoszenia
+        public ActionResult CreateNotice()
+        {
+            return View();
         }
 
         // Widok do edytowania użytkownika

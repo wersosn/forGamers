@@ -93,3 +93,29 @@
 </table>
 <a href="@Url.Action("CreateForum", "Forums")" class="btn btn-success">Dodaj forum</a>
 
+<hr />
+<h3>Wiadomości</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Treść</th>
+            <th>Autor</th>
+            <th>Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var message in ViewBag.Messages as IEnumerable<Forum.Models.Message>)
+        {
+            <tr>
+                <td>@message.Id</td>
+                <td>@message.Content</td>
+                <td>@message.UserName</td>
+                <td>
+                    <a href="@Url.Action("Edit", "Messages", new { id = message.Id })">Edytuj</a> |
+                    <a href="@Url.Action("Delete", "Messages", new { id = message.Id })" onclick="return confirm('Czy na pewno chcesz usunąć tą wiadomość');">Usuń</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

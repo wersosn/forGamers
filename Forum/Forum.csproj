@@ -243,6 +243,10 @@
     <Compile Include="Migrations\202501101318440_ForumModerators.designer.cs">
       <DependentUpon>202501101318440_ForumModerators.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202501101558552_ogloszenia.cs" />
+    <Compile Include="Migrations\202501101558552_ogloszenia.designer.cs">
+      <DependentUpon>202501101558552_ogloszenia.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -252,6 +256,7 @@
     <Compile Include="Models\ManageModerators.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\Notice.cs" />
     <Compile Include="Models\Thread.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -343,6 +348,7 @@
     <Content Include="Views\Categories\CreateCategory.cshtml" />
     <Content Include="Views\Forums\CreateForum.cshtml" />
     <Content Include="Views\Forums\ManageModerators.cshtml" />
+    <Content Include="Views\AdminPanel\CreateNotice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -422,6 +428,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202501101318440_ForumModerators.resx">
       <DependentUpon>202501101318440_ForumModerators.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202501101558552_ogloszenia.resx">
+      <DependentUpon>202501101558552_ogloszenia.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

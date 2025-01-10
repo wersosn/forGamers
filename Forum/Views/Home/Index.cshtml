@@ -28,7 +28,7 @@
             <a class="btn-custom" href="@Url.Action("Create", "Threads")">Dodaj wątek</a><br />
             if (User.IsInRole("admin"))
             {
-                <a class="btn-custom">Dodaj ogłoszenie</a><br />
+                <a class="btn-custom" href="@Url.Action("CreateNotice", "AdminPanel")">Dodaj ogłoszenie</a><br />
                 <a class="btn-custom" href="@Url.Action("Index", "AdminPanel")">Panel admina</a><br />
             }
 
