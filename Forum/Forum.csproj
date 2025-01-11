@@ -251,9 +251,14 @@
     <Compile Include="Migrations\202501111345412_dodanieViews.designer.cs">
       <DependentUpon>202501111345412_dodanieViews.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202501111624212_zakazaneSlowa.cs" />
+    <Compile Include="Migrations\202501111624212_zakazaneSlowa.designer.cs">
+      <DependentUpon>202501111624212_zakazaneSlowa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\ForbiddenWord.cs" />
     <Compile Include="Models\Forum.cs" />
     <Compile Include="Models\ForumModerator.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -438,6 +443,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202501111345412_dodanieViews.resx">
       <DependentUpon>202501111345412_dodanieViews.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202501111624212_zakazaneSlowa.resx">
+      <DependentUpon>202501111624212_zakazaneSlowa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

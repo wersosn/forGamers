@@ -36,6 +36,7 @@ namespace Forum.Models
         public DbSet<Forum> Forums { get; set; }
         public DbSet<ForumModerator> ForumModerators { get; set; }
         public DbSet<Notice> Notices { get; set; }
+        public DbSet<ForbiddenWord> ForbiddenWords { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

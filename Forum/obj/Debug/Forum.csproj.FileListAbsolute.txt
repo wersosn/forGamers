@@ -135,3 +135,4 @@ C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.dodanieForów.reso
 C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.ForumModerators.resources
 C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.ogloszenia.resources
 C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.dodanieViews.resources
+C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.zakazaneSlowa.resources
