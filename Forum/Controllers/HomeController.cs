@@ -18,10 +18,18 @@ namespace Forum.Controllers
             var numberOfUsers = db.Users.Count();
             var numberOfThreads = db.Threads.Count();
             var numberOfMessages = db.Messages.Count();
+            var threadStatistics = db.Threads.Select(t => new
+            {
+                ThreadId = t.Id,
+                ViewsCount = t.Views,
+                RepliesCount = t.Messages.Count()
+            }).ToList();
+
             ViewBag.NumberOfUsers = numberOfUsers;
             ViewBag.NumberOfThreads = numberOfThreads;
             ViewBag.NumberOfMessages = numberOfMessages;
             ViewBag.Categories = categories;
+            ViewBag.ThreadStatistics = threadStatistics;
             return View(threads);
         }
 
@@ -38,12 +46,5 @@ namespace Forum.Controllers
 
             return View();
         }
-
-        /*private bool IsUserAdmin()
-        {
-            var userId = User.Identity.GetUserId();
-            var user = db.Users.FirstOrDefault(u => u.Id == userId);
-            return user != null && user.Role == "admin";
-        }*/
     }
 }

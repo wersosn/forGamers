@@ -25,5 +25,7 @@ namespace Forum.Models
         public int ForumId { get; set; }
         public Forum Forum { get; set; }
         public virtual ICollection<Message> Messages { get; set; }
+
+        public int Views {  get; set; }
     }
 }

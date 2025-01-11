@@ -15,7 +15,16 @@
                     <ul class="submenu" id="@category.Name.Replace(" ", "_")">
                         @foreach (var forum in category.Forums)
                         {
-                            <li><a href="#">@forum.Name</a></li>
+                            <li>
+                                <a href="#">
+                                    @forum.Name<br />
+                                    <small>
+                                        (Wątki: @(forum.Threads != null && forum.Threads.Count > 0 ? forum.Threads.Count : 0),
+                                        Wiadomości: @(forum.Threads != null && forum.Threads.Any() ? forum.Threads.SelectMany(t => t.Messages).Count() : 0))
+                                    </small>
+                                    <hr />
+                                </a>
+                            </li>
                         }
                     </ul>
                 </li>
@@ -67,6 +76,9 @@
                         <div class="post user-post" style="text-decoration: none; cursor: pointer;" onclick="location.href='@Url.Action("Details", "Threads", new { id = thread.Id })'">
                             <h4>@thread.Title</h4>
                             <p>@thread.Content</p>
+                            <p>
+                                <small>Odsłony: @thread.Views, Odpowiedzi: @thread.Messages.Count()</small>
+                            </p>
                         </div>
                     }
                 }
@@ -78,15 +90,6 @@
         </div>
     </div>
 </div>
-
-<!--Przycisk do zmiany skórki TBA: -->
-<!--<div class="theme-toggle">
-    <button id="theme-button" onclick="toggleThemeMenu()">⚙️</button>
-    <div id="theme-menu" class="theme-menu hidden">
-        <button onclick="setLightMode()">🌞 Jasny Tryb</button>
-        <button onclick="setDarkMode()">🌙 Ciemny Tryb</button>
-    </div>
-</div>-->
 
 <script>
     function toggleSubmenu(submenuId, button) {
