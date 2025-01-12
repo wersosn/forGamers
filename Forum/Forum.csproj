@@ -175,6 +175,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
+    <Compile Include="Controllers\NoticeController.cs" />
     <Compile Include="Controllers\ThreadsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -357,7 +358,10 @@
     <Content Include="Views\Categories\CreateCategory.cshtml" />
     <Content Include="Views\Forums\CreateForum.cshtml" />
     <Content Include="Views\Forums\ManageModerators.cshtml" />
-    <Content Include="Views\AdminPanel\CreateNotice.cshtml" />
+    <Content Include="Views\Notice\Create.cshtml" />
+    <Content Include="Views\Notice\Edit.cshtml" />
+    <Content Include="Views\Notice\Delete.cshtml" />
+    <Content Include="Views\Notice\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

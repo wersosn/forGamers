@@ -56,12 +56,6 @@ namespace Forum.Controllers
             return View(userRoleNames);
         }
 
-        // Tworzenie ogłoszenia
-        public ActionResult CreateNotice()
-        {
-            return View();
-        }
-
         // Widok do edytowania użytkownika
         public ActionResult EditUser(string id)
         {          

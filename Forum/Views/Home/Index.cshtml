@@ -37,7 +37,7 @@
             <a class="btn-custom" href="@Url.Action("Create", "Threads")">Dodaj wątek</a><br />
             if (User.IsInRole("admin"))
             {
-                <a class="btn-custom" href="@Url.Action("CreateNotice", "AdminPanel")">Dodaj ogłoszenie</a><br />
+                <a class="btn-custom" href="@Url.Action("Create", "Notice")">Dodaj ogłoszenie</a><br />
                 <a class="btn-custom" href="@Url.Action("Index", "AdminPanel")">Panel admina</a><br />
             }
 
@@ -51,20 +51,22 @@
 
     <div class="content">
         <div class="posts-section">
-            <h2>Posty Administratora</h2>
+            <h2>Ogłoszenia Administratora</h2>
             <div class="posts-grid admin-posts">
-                <div class="post admin-post">
-                    <h4>Post administacji 1</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-                <div class="post admin-post">
-                    <h4>Post administacji 2</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-                <div class="post admin-post">
-                    <h4>Post administacji 3</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
+                @if (ViewBag.Notices != null && ((List<Forum.Models.Notice>)ViewBag.Notices).Any())
+                {
+                    foreach (var notice in (List<Forum.Models.Notice>)ViewBag.Notices)
+                    {
+                        <div class="post admin-post" onclick="location.href='@Url.Action("Details", "Notice", new { id = notice.Id })'">
+                            <h4>@notice.Title</h4>
+                            <p>@notice.Content</p>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>Brak ogłoszeń administracyjnych.</p>
+                }
             </div>
             <hr>
             <h2>Najnowsze Wątki Użytkowników</h2>

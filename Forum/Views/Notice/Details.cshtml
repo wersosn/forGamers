@@ -1,0 +1,13 @@
+﻿@model Forum.Models.Notice
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+    <h4>@Model.Title</h4>
+    <p>@Model.Content</p>
+    <small>@Model.CreatedAt.ToString("dd-MM-yyyy HH:mm")</small>
+</div>
+
+<a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Powrót do strony głównej</a>
+

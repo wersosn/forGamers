@@ -13,6 +13,7 @@ namespace Forum.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
+            var notices = db.Notices.OrderByDescending(notice => notice.CreatedAt).Take(3).ToList();
             var threads = db.Threads.ToList();
             var categories = db.Categories.ToList();
             var numberOfUsers = db.Users.Count();
@@ -25,6 +26,7 @@ namespace Forum.Controllers
                 RepliesCount = t.Messages.Count()
             }).ToList();
 
+            ViewBag.Notices = notices;
             ViewBag.NumberOfUsers = numberOfUsers;
             ViewBag.NumberOfThreads = numberOfThreads;
             ViewBag.NumberOfMessages = numberOfMessages;
