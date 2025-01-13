@@ -7,6 +7,7 @@ using Forum.Models;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity;
+using System.Threading;
 
 
 namespace Forum.Controllers
@@ -28,6 +29,18 @@ namespace Forum.Controllers
                 {
                     return RedirectToAction("Login", "Account");
                 }
+
+                var forbiddenWords = db.ForbiddenWords.Select(fw => fw.Word).ToList();
+                var content = message.Content.ToLower();
+                foreach (var word in forbiddenWords)
+                {
+                    if (content.Contains(word.ToLower()))
+                    {
+                        TempData["ErrorMessage"] = "Wiadomość zawiera zakazane słowo!";
+                        return RedirectToAction("Details", "Threads", new { id = threadId });
+                    }
+                }
+
                 message.ThreadId = threadId;
                 message.UserId = currentUserId;
                 message.UserName = currentUserName;
@@ -87,6 +100,17 @@ namespace Forum.Controllers
                 if (!(isModerator || User.IsInRole("admin")))
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.Forbidden, "Nie masz uprawnień do edycji tej wiadomości.");
+                }
+
+                var forbiddenWords = db.ForbiddenWords.Select(fw => fw.Word).ToList();
+                var content = editedMessage.Content.ToLower();
+                foreach (var word in forbiddenWords)
+                {
+                    if (content.Contains(word.ToLower()))
+                    {
+                        TempData["ErrorMessage"] = "Wiadomość zawiera zakazane słowo!";
+                        return RedirectToAction("Edit", "Messages", new { id = editedMessage.Id });
+                    }
                 }
 
                 message.Content = editedMessage.Content;

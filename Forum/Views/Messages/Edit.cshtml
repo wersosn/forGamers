@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Edycja Wiadomości";
+    var errorMessage = TempData["ErrorMessage"] as string;
 }
 @if (User.IsInRole("moderator") || User.IsInRole("admin"))
 {
@@ -9,9 +10,8 @@
     <body>
         <main class="main-container">
             <div class="main">
-                <h2>Edycja Wątku</h2>
-                <hr />
                 <h2>Edycja Wiadomości</h2>
+                <hr />
 
                 @using (Html.BeginForm())
                 {
@@ -32,4 +32,11 @@
 else
 {
     Response.Redirect("~/Account/Login");
+}
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <script>
+        alert('@errorMessage');
+    </script>
 }

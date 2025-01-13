@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Forum.Models.ForbiddenWord>
+@{
+    ViewBag.Title = "ForbiddenWords";
+}
+
+<h2>Słowa zakazane</h2>
+<a href="@Url.Action("AddForbiddenWord", "AdminPanel")" class="btn-custom">Dodaj</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Słowo</th>
+            <th>Operacje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var word in Model)
+        {
+            <tr>
+                <td>@word.Word</td>
+                <td>
+                    <form method="post" action="@Url.Action("DeleteForbiddenWord", "AdminPanel", new { id = word.Id })">
+                        <button type="submit">Usuń</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

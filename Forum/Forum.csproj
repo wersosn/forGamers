@@ -362,6 +362,8 @@
     <Content Include="Views\Notice\Edit.cshtml" />
     <Content Include="Views\Notice\Delete.cshtml" />
     <Content Include="Views\Notice\Details.cshtml" />
+    <Content Include="Views\AdminPanel\ForbiddenWords.cshtml" />
+    <Content Include="Views\AdminPanel\AddForbiddenWord.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

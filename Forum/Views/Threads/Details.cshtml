@@ -6,6 +6,7 @@
     Model.UserName = Model.UserName.Split('@')[0];
     var currentUserId = User.Identity.GetUserId();
     bool isAuthor = Model.UserId == currentUserId;
+    var errorMessage = TempData["ErrorMessage"] as string;
 }
 <link rel="stylesheet" href="~/Content/Styles/threads.css" />
 <main class="main-content">
@@ -57,3 +58,9 @@
 
     </div>
 </main>
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <script>
+        alert('@errorMessage');
+    </script>
+}

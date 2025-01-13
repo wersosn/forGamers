@@ -103,5 +103,46 @@ namespace Forum.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        // Widok do zarządzania słownikiem słów zakazanych
+        public ActionResult ForbiddenWords()
+        {
+            var words = db.ForbiddenWords.ToList();
+            return View(words);
+        }
+
+        // Dodawanie słów zakazanych
+        [HttpGet]
+        public ActionResult AddForbiddenWord()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddForbiddenWord(string word)
+        {
+            if (!string.IsNullOrEmpty(word))
+            {
+                var forbiddenWord = new ForbiddenWord { Word = word };
+                db.ForbiddenWords.Add(forbiddenWord);
+                db.SaveChanges();
+            }
+            return RedirectToAction("ForbiddenWords");
+        }
+
+        // Usuwanie słów zakazanych
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteForbiddenWord(int id)
+        {
+            var word = db.ForbiddenWords.Find(id);
+            if (word != null)
+            {
+                db.ForbiddenWords.Remove(word);
+                db.SaveChanges();
+            }
+            return RedirectToAction("ForbiddenWords");
+        }
     }
 }
