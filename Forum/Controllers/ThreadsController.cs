@@ -111,8 +111,7 @@ namespace Forum.Controllers
             var thread = db.Threads.Include("Messages").Include("Forum").FirstOrDefault(t => t.Id == id);
             db.Database.ExecuteSqlCommand("UPDATE Threads SET Views = Views + 1 WHERE Id = @p0", id);
             var currentUserId = User.Identity.GetUserId();
-            var isModerator = db.ForumModerators
-                                .Any(fm => fm.ForumId == thread.ForumId && fm.UserId == currentUserId);
+            var isModerator = db.ForumModerators.Any(fm => fm.ForumId == thread.ForumId && fm.UserId == currentUserId);
             ViewBag.IsModerator = isModerator;
             return View(thread);
         }

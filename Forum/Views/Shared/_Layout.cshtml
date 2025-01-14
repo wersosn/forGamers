@@ -21,8 +21,8 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <div class="mx-auto">
-                        <form class="d-flex search-bar" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Wyszukiwanie..." aria-label="Search" style="background-color: #f4f4f4;"/>
+                        <form class="d-flex search-bar" role="search" method="get" action="@Url.Action("SearchThreads", "Home")">
+                            <input class="form-control me-2" type="search" name="query" placeholder="Wyszukiwanie..." aria-label="Search" style="background-color: #f4f4f4;"/>
                             <button class="btn custom-search-btn" type="submit">Wyszukaj</button>
                         </form>
                     </div>

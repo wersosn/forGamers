@@ -76,5 +76,62 @@ namespace Forum.Controllers
             ViewBag.ForumName = forum.Name;
             return View(threads);
         }
+
+        public ActionResult SearchThreads(string query)
+        {
+            if (string.IsNullOrEmpty(query))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var categories = db.Categories.ToList();
+            var numberOfUsers = db.Users.Count();
+            var numberOfThreads = db.Threads.Count();
+            var numberOfMessages = db.Messages.Count();
+            var threadStatistics = db.Threads.Select(t => new
+            {
+                ThreadId = t.Id,
+                ViewsCount = t.Views,
+                RepliesCount = t.Messages.Count()
+            }).ToList();
+
+            ViewBag.NumberOfUsers = numberOfUsers;
+            ViewBag.NumberOfThreads = numberOfThreads;
+            ViewBag.NumberOfMessages = numberOfMessages;
+            ViewBag.Categories = categories;
+            ViewBag.ThreadStatistics = threadStatistics;
+
+            query = query.Replace("&&", "AND").Replace("||", "OR").Replace("~", "NOT");
+            ViewBag.Search = query;
+
+            var keywords = query.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var threadsQuery = db.Threads.AsQueryable();
+
+            foreach (var keyword in keywords)
+            {
+                // Obsługa operatorów
+                if (keyword.Contains("AND"))
+                {
+                    var terms = keyword.Split(new[] { "AND" }, StringSplitOptions.None);
+                    threadsQuery = threadsQuery.Where(t => terms.All(term => t.Title.Contains(term) || t.Content.Contains(term)));
+                }
+                else if (keyword.Contains("OR"))
+                {
+                    var terms = keyword.Split(new[] { "OR" }, StringSplitOptions.None);
+                    threadsQuery = threadsQuery.Where(t => terms.Any(term => t.Title.Contains(term) || t.Content.Contains(term)));
+                }
+                else if (keyword.Contains("NOT"))
+                {
+                    var terms = keyword.Split(new[] { "NOT" }, StringSplitOptions.None);
+                    threadsQuery = threadsQuery.Where(t => !t.Title.Contains(terms[1]) && !t.Content.Contains(terms[1]));
+                }
+                else
+                {
+                    threadsQuery = threadsQuery.Where(t => t.Title.Contains(keyword) || t.Content.Contains(keyword));
+                }
+            }
+            var threads = threadsQuery.ToList();
+            return View("SearchThreads", threads);
+        }
     }
 }

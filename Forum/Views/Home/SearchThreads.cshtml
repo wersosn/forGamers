@@ -1,0 +1,89 @@
+﻿@model List<Forum.Models.Thread>
+@{
+    ViewBag.Title = "SearchThreads";
+}
+
+<link rel="stylesheet" href="~/Content/Styles/buttons.css" />
+<link rel="stylesheet" href="~/Content/site.css" />
+<div class="container">
+    <div class="sidebar">
+        <h3>Menu</h3>
+        <ul class="category-list">
+            @foreach (var category in ViewBag.Categories as List<Forum.Models.Category>)
+            {
+                <li class="category">
+                    <button class="toggleButton" onclick="toggleSubmenu('@category.Name.Replace(" ", "_")', this)">@category.Name</button>
+                    <ul class="submenu" id="@category.Name.Replace(" ", "_")">
+                        @foreach (var forum in category.Forums)
+                        {
+                            <li>
+                                <a href="@Url.Action("ForumThreads", "Home", new { forumId = forum.Id })">
+                                    @forum.Name
+                                    <hr />
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
+        </ul>
+        <hr />
+        <h3>Other</h3>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a class="btn-custom" href="@Url.Action("Create", "Threads")">Dodaj wątek</a><br />
+            if (User.IsInRole("admin"))
+            {
+                <a class="btn-custom" href="@Url.Action("Create", "Notice")">Dodaj ogłoszenie</a><br />
+                <a class="btn-custom" href="@Url.Action("Index", "AdminPanel")">Panel admina</a><br />
+            }
+
+        }
+        <hr />
+        <h3>Statistics</h3>
+        <p>Zarejestrowani użytkownicy:  @ViewBag.NumberOfUsers</p>
+        <p>Ilość wątków:  @ViewBag.NumberOfThreads</p>
+        <p>Ilość wiadomości: @ViewBag.NumberOfMessages</p>
+    </div>
+
+    <div class="content">
+        <div class="posts-section">
+            <h2>Wynik wyszukiwania dla: @ViewBag.Search</h2>
+            <div class="posts-grid user-posts" style="min-width:300px;">
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var thread in Model)
+                    {
+                        <div class="post user-post" style="text-decoration: none; cursor: pointer;" onclick="location.href='@Url.Action("Details", "Threads", new { id = thread.Id })'">
+                            <h4>@thread.Title</h4>
+                            <p>@thread.Content</p>
+                            <p>
+                                <small>Odsłony: @thread.Views, Odpowiedzi: @thread.Messages.Count()</small>
+                            </p>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>Brak dostępnych wątków.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleSubmenu(submenuId, button) {
+        submenu = document.getElementById(submenuId);
+        submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+
+        if (button.style.backgroundColor !== 'rgb(20, 20, 21)') {
+            button.style.backgroundColor = 'rgb(20, 20, 21)';
+            button.style.color = 'rgb(244, 244, 244)';
+        } else {
+            button.style.backgroundColor = 'rgb(244, 244, 244)';
+            button.style.color = 'rgb(20, 20, 21)';
+        }
+    }
+</script>
+

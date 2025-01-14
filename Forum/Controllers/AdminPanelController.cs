@@ -31,8 +31,6 @@ namespace Forum.Controllers
             var messages = db.Messages.ToList();
             var forums = db.Forums.ToList();
             var categories = db.Categories.ToList();
-            var roles = db.Roles.Select(r => new { r.Id, r.Name }).ToList();
-            ViewBag.Roles = roles;
             ViewBag.Forums = forums;
             ViewBag.Categories = categories;
             ViewBag.Threads = threads;
