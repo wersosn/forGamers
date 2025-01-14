@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<Forum.Models.Thread>
 @{
-    ViewData["Title"] = "Strona główna";
+    ViewBag.Title = "ForumThreads";
 }
+
 <link rel="stylesheet" href="~/Content/Styles/buttons.css" />
 <link rel="stylesheet" href="~/Content/site.css" />
 <div class="container">
@@ -17,11 +18,7 @@
                         {
                             <li>
                                 <a href="@Url.Action("ForumThreads", "Home", new { forumId = forum.Id })">
-                                    @forum.Name<br />
-                                    <small>
-                                        (Wątki: @(forum.Threads != null && forum.Threads.Count > 0 ? forum.Threads.Count : 0),
-                                        Wiadomości: @(forum.Threads != null && forum.Threads.Any() ? forum.Threads.SelectMany(t => t.Messages).Count() : 0))
-                                    </small>
+                                    @forum.Name
                                     <hr />
                                 </a>
                             </li>
@@ -51,26 +48,8 @@
 
     <div class="content">
         <div class="posts-section">
-            <h2>Ogłoszenia Administratora</h2>
-            <div class="posts-grid admin-posts">
-                @if (ViewBag.Notices != null && ((List<Forum.Models.Notice>)ViewBag.Notices).Any())
-                {
-                    foreach (var notice in (List<Forum.Models.Notice>)ViewBag.Notices)
-                    {
-                        <div class="post admin-post" onclick="location.href='@Url.Action("Details", "Notice", new { id = notice.Id })'">
-                            <h4>@notice.Title</h4>
-                            <p>@notice.Content</p>
-                        </div>
-                    }
-                }
-                else
-                {
-                    <p>Brak ogłoszeń administracyjnych.</p>
-                }
-            </div>
-            <hr>
-            <h2>Najnowsze Wątki Użytkowników</h2>
-            <div class="posts-grid user-posts">
+            <h2>@ViewBag.ForumName</h2>
+            <div class="posts-grid user-posts" style="min-width:300px;">
                 @if (Model != null && Model.Any())
                 {
                     foreach (var thread in Model)
@@ -107,5 +86,4 @@
         }
     }
 </script>
-
 

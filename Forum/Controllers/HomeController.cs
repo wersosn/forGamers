@@ -48,5 +48,33 @@ namespace Forum.Controllers
 
             return View();
         }
+
+        public ActionResult ForumThreads(int forumId)
+        {
+            var forum = db.Forums.FirstOrDefault(f => f.Id == forumId);
+            if (forum == null)
+            {
+                return HttpNotFound();
+            }
+            var threads = db.Threads.Where(t => t.ForumId == forumId).ToList();
+            var categories = db.Categories.ToList();
+            var numberOfUsers = db.Users.Count();
+            var numberOfThreads = db.Threads.Count();
+            var numberOfMessages = db.Messages.Count();
+            var threadStatistics = db.Threads.Select(t => new
+            {
+                ThreadId = t.Id,
+                ViewsCount = t.Views,
+                RepliesCount = t.Messages.Count()
+            }).ToList();
+            ViewBag.NumberOfUsers = numberOfUsers;
+            ViewBag.NumberOfThreads = numberOfThreads;
+            ViewBag.NumberOfMessages = numberOfMessages;
+            ViewBag.Categories = categories;
+            ViewBag.ThreadStatistics = threadStatistics;
+
+            ViewBag.ForumName = forum.Name;
+            return View(threads);
+        }
     }
 }

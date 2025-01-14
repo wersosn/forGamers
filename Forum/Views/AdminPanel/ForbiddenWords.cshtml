@@ -19,9 +19,11 @@
             <tr>
                 <td>@word.Word</td>
                 <td>
-                    <form method="post" action="@Url.Action("DeleteForbiddenWord", "AdminPanel", new { id = word.Id })">
+                    @using (Html.BeginForm("DeleteForbiddenWord", "AdminPanel", new { id = word.Id }, FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
                         <button type="submit">Usuń</button>
-                    </form>
+                    }
                 </td>
             </tr>
         }
