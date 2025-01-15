@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNet.Identity;
+
+@{
+    ViewBag.Title = ViewBag.Thread?.Title;
+    var currentUserId = User.Identity.GetUserId();
+    bool isAuthor = ViewBag.Thread?.UserId == currentUserId;
+    var errorMessage = TempData["ErrorMessage"] as string;
+    var searchResults = ViewBag.SearchResults as List<Forum.Models.Message>;
+}
+
+<link rel="stylesheet" href="~/Content/Styles/threads.css" />
+
+<main class="main-content">
+    <div class="main">
+        <h2><strong>@ViewBag.ThreadDetails.Title | @ViewBag.ThreadDetails.UserName.Split('@')[0] | @ViewBag.Forum | @ViewBag.ThreadDetails.CreatedAt.ToString("dd/MM/yyyy")</strong></h2>
+        <p>@ViewBag.ThreadDetails.Content</p>
+        <hr />
+        <h2>Wyniki wyszukiwania dla "@ViewBag.Search"</h2>
+
+        @if (searchResults != null && searchResults.Any())
+        {
+            foreach (var message in searchResults)
+            {
+                var userName = message.UserName.Split('@')[0];
+                <div>
+                    <p>
+                        <strong>@userName</strong> | @message.CreatedAt.ToString("dd/MM/yyyy")
+                        @if (ViewBag.IsModerator || User.IsInRole("admin"))
+                        {
+                            @Html.ActionLink("Edytuj", "Edit", "Messages", new { id = message.Id }, new { @class = "btn-custom-2", style = "margin:10px;text-decoration:none;" })
+                            @Html.ActionLink("Usuń", "Delete", "Messages", new { id = message.Id }, new { @class = "btn-custom-2", style = "text-decoration:none;" })
+                        }
+                    </p>
+                    <p>@message.Content</p>
+                </div>
+                <hr />
+            }
+        }
+        else
+        {
+            <p>Brak wyników wyszukiwania dla "@ViewBag.Search".</p>
+        }
+    </div>
+</main>
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <script>
+        alert('@errorMessage');
+    </script>
+}

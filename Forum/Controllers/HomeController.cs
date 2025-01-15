@@ -113,21 +113,21 @@ namespace Forum.Controllers
                 if (keyword.Contains("AND"))
                 {
                     var terms = keyword.Split(new[] { "AND" }, StringSplitOptions.None);
-                    threadsQuery = threadsQuery.Where(t => terms.All(term => t.Title.Contains(term) || t.Content.Contains(term)));
+                    threadsQuery = threadsQuery.Where(t => terms.All(term => t.Title.ToLower().Contains(term.ToLower()) || t.Content.ToLower().Contains(term.ToLower())));
                 }
                 else if (keyword.Contains("OR"))
                 {
                     var terms = keyword.Split(new[] { "OR" }, StringSplitOptions.None);
-                    threadsQuery = threadsQuery.Where(t => terms.Any(term => t.Title.Contains(term) || t.Content.Contains(term)));
+                    threadsQuery = threadsQuery.Where(t => terms.Any(term => t.Title.ToLower().Contains(term.ToLower()) || t.Content.ToLower().Contains(term.ToLower())));
                 }
                 else if (keyword.Contains("NOT"))
                 {
                     var terms = keyword.Split(new[] { "NOT" }, StringSplitOptions.None);
-                    threadsQuery = threadsQuery.Where(t => !t.Title.Contains(terms[1]) && !t.Content.Contains(terms[1]));
+                    threadsQuery = threadsQuery.Where(t => !t.Title.ToLower().Contains(terms[1].ToLower()) && !t.Content.ToLower().Contains(terms[1].ToLower()));
                 }
                 else
                 {
-                    threadsQuery = threadsQuery.Where(t => t.Title.Contains(keyword) || t.Content.Contains(keyword));
+                    threadsQuery = threadsQuery.Where(t => t.Title.ToLower().Contains(keyword.ToLower()) || t.Content.ToLower().Contains(keyword.ToLower()));
                 }
             }
             var threads = threadsQuery.ToList();

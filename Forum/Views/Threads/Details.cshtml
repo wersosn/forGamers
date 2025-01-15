@@ -14,7 +14,16 @@
         <h2><strong>@Model.Title | @Model.UserName | @Model.Forum.Name | @Model.CreatedAt.ToString("dd/MM/yyyy")</strong></h2>
         <p>@Model.Content</p>
         <hr />
-        <h2>Wiadomości</h2>
+        <h2>
+            Wiadomości @using (Html.BeginForm("SearchMessages", "Threads", FormMethod.Get, new { @class = "d-flex" }))
+            {
+                @Html.Hidden("threadId", Model.Id) <!-- Przekazuje ID wątku -->
+                <input type="text" name="query" class="form-control me-2"
+                       placeholder="Wyszukaj w wiadomościach..."
+                       style="width: 300px; display: inline-block; margin-right: 10px;" />
+                <button type="submit" class="btn btn-primary">Szukaj</button>
+            }
+        </h2>
         @foreach (var message in Model.Messages)
         {
             var userName = message.UserName.Split('@')[0];

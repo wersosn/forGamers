@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using Forum.Models;
 using Microsoft.AspNet.Identity;
@@ -106,7 +107,7 @@ namespace Forum.Controllers
             return View(threads);
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details(int id, string searchQuery = null)
         {
             var thread = db.Threads.Include("Messages").Include("Forum").FirstOrDefault(t => t.Id == id);
             db.Database.ExecuteSqlCommand("UPDATE Threads SET Views = Views + 1 WHERE Id = @p0", id);
@@ -114,6 +115,54 @@ namespace Forum.Controllers
             var isModerator = db.ForumModerators.Any(fm => fm.ForumId == thread.ForumId && fm.UserId == currentUserId);
             ViewBag.IsModerator = isModerator;
             return View(thread);
+        }
+
+        public ActionResult SearchMessages(int threadId, string query)
+        {
+            if (string.IsNullOrEmpty(query))
+            {
+                return RedirectToAction("Details", new { id = threadId });
+            }
+            var thread = db.Threads.Include("Messages").Include("Forum").FirstOrDefault(t => t.Id == threadId);
+            if (thread == null)
+            {
+                return HttpNotFound();
+            }
+            var messagesQuery = thread.Messages.AsQueryable();
+            query = query.Replace("&&", "AND").Replace("||", "OR").Replace("~", "NOT");
+            var keywords = query.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var keyword in keywords)
+            {
+                if (keyword.Contains("AND"))
+                {
+                    var terms = keyword.Split(new[] { "AND" }, StringSplitOptions.None);
+                    messagesQuery = messagesQuery.Where(m => terms.All(term => m.Content.ToLower().Contains(term.ToLower())));
+                }
+                else if (keyword.Contains("OR"))
+                {
+                    var terms = keyword.Split(new[] { "OR" }, StringSplitOptions.None);
+                    messagesQuery = messagesQuery.Where(m => terms.Any(term => m.Content.ToLower().Contains(term.ToLower())));
+                }
+                else if (keyword.Contains("NOT"))
+                {
+                    var terms = keyword.Split(new[] { "NOT" }, StringSplitOptions.None);
+                    messagesQuery = messagesQuery.Where(m => !m.Content.ToLower().Contains(terms[1].ToLower()));
+                }
+                else
+                {
+                    messagesQuery = messagesQuery.Where(m => m.Content.ToLower().Contains(keyword.ToLower()));
+                }
+            }
+            var filteredMessages = messagesQuery.ToList();
+            var currentUserId = User.Identity.GetUserId();
+            var isModerator = db.ForumModerators.Any(fm => fm.ForumId == thread.ForumId && fm.UserId == currentUserId);
+            ViewBag.ThreadDetails = thread;
+            ViewBag.Forum = thread.Forum.Name;
+            ViewBag.IsModerator = isModerator;
+            ViewBag.Search = query;
+            ViewBag.SearchResults = filteredMessages;
+            return View("SearchMessages");
         }
     }
 }

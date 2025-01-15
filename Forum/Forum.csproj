@@ -366,6 +366,7 @@
     <Content Include="Views\AdminPanel\AddForbiddenWord.cshtml" />
     <Content Include="Views\Home\ForumThreads.cshtml" />
     <Content Include="Views\Home\SearchThreads.cshtml" />
+    <Content Include="Views\Threads\SearchMessages.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
