@@ -137,3 +137,4 @@ C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.ogloszenia.resourc
 C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.dodanieViews.resources
 C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.zakazaneSlowa.resources
 C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.przypieteWatki.resources
+C:\Users\wsosn\Desktop\Forum\Forum\obj\Debug\Forum.Migrations.userPreferences.resources

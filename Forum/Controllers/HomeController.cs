@@ -14,7 +14,7 @@ namespace Forum.Controllers
         public ActionResult Index()
         {
             var notices = db.Notices.OrderByDescending(notice => notice.CreatedAt).Take(3).ToList();
-            var threads = db.Threads.ToList();
+            var threads = db.Threads.OrderByDescending(t => t.CreatedAt).ToList();
             var pinnedThreads = db.Threads.Where(t => t.isPinned).OrderByDescending(t => t.CreatedAt).Take(3).ToList();
             var categories = db.Categories.ToList();
             var numberOfUsers = db.Users.Count();

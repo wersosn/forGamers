@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Forum.Models;
+using Forum.Migrations;
 
 namespace Forum.Controllers
 {
@@ -15,6 +16,7 @@ namespace Forum.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -49,6 +51,31 @@ namespace Forum.Controllers
                 _userManager = value;
             }
         }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult UpdateMessagesPerPage(int messagesPerPage)
+        {
+            var userId = User.Identity.GetUserId();
+            var preference = db.UserPreferences.FirstOrDefault(up => up.UserId == userId);
+            if (preference == null)
+            {
+                preference = new UserPreferences
+                {
+                    UserId = userId,
+                    MessagesPerPage = messagesPerPage
+                };
+                db.UserPreferences.Add(preference);
+            }
+            else
+            {
+                preference.MessagesPerPage = messagesPerPage;
+            }
+            db.SaveChanges();
+            TempData["Success"] = "Liczba wiadomości na stronie została zaktualizowana.";
+            return RedirectToAction("Index", "Manage");
+        }
+
 
         //
         // GET: /Manage/Index

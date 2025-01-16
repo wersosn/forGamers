@@ -23,7 +23,6 @@
                                         (Wątki: @(forum.Threads != null && forum.Threads.Count > 0 ? forum.Threads.Count : 0),
                                         Wiadomości: @(forum.Threads != null && forum.Threads.Any() ? forum.Threads.SelectMany(t => t.Messages).Count() : 0))
                                     </small>
-                                    <hr />
                                 </a>
                             </li>
                         }
@@ -45,7 +44,7 @@
         }
         <hr />
         <h3>Statistics</h3>
-        <p>Zarejestrowani użytkownicy:  @ViewBag.NumberOfUsers</p>
+        <p>Zarejestrowani<br />użytkownicy:  @ViewBag.NumberOfUsers</p>
         <p>Ilość wątków:  @ViewBag.NumberOfThreads</p>
         <p>Ilość wiadomości: @ViewBag.NumberOfMessages</p>
     </div>

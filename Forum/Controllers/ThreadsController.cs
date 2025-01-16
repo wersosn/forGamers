@@ -107,13 +107,29 @@ namespace Forum.Controllers
             return View(threads);
         }
 
-        public ActionResult Details(int id, string searchQuery = null)
+        public ActionResult Details(int id, int page = 1)
         {
             var thread = db.Threads.Include("Messages").Include("Forum").FirstOrDefault(t => t.Id == id);
             db.Database.ExecuteSqlCommand("UPDATE Threads SET Views = Views + 1 WHERE Id = @p0", id);
+
             var currentUserId = User.Identity.GetUserId();
             var isModerator = db.ForumModerators.Any(fm => fm.ForumId == thread.ForumId && fm.UserId == currentUserId);
             ViewBag.IsModerator = isModerator;
+            var userPreference = db.UserPreferences.FirstOrDefault(up => up.UserId == currentUserId);
+            var pageSize = userPreference?.MessagesPerPage ?? 5;
+
+            var totalMessages = thread.Messages.Count();
+            var messages = thread.Messages
+                                 .OrderBy(m => m.CreatedAt)
+                                 .Skip((page - 1) * pageSize)
+                                 .Take(pageSize)
+                                 .ToList();
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalMessages / pageSize);
+            ViewBag.PageSize = pageSize;
+
+            thread.Messages = messages;
             return View(thread);
         }
 

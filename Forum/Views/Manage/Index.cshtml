@@ -3,7 +3,21 @@
     ViewBag.Title = "Zarządzaj";
 }
 
-<main aria-labelledby="title">
+<h1>Profil</h1>
+<form action="/Manage/UpdateMessagesPerPage" method="post">
+    @Html.AntiForgeryToken()
+    <label for="messagesPerPage">Liczba wiadomości na stronę:</label>
+    <input type="number" id="messagesPerPage" name="messagesPerPage" min="1" max="100" required />
+    <button type="submit" class="btn btn-primary">Zapisz</button>
+</form>
+
+@if (TempData["Success"] != null)
+{
+    <p class="text-success">@TempData["Success"]</p>
+}
+
+
+<!--<main aria-labelledby="title">
     <h2 id="title">@ViewBag.Title.</h2>
 
     <p class="text-success">@ViewBag.StatusMessage</p>
@@ -30,14 +44,14 @@
                 @Html.ActionLink("Manage", "ManageLogins") ]
             </dd>
             @*
-                Numery telefonów mogą być używane jako drugi składnik w systemach uwierzytelniania dwuskładnikowego.
-             
-             Zobacz <a href="https://go.microsoft.com/fwlink/?LinkId=403804">ten artykuł</a>,
-                        aby uzyskać szczegółowe informacje na temat konfigurowania tej aplikacji ASP.NET pod kątem obsługi uwierzytelniania dwuskładnikowego przy użyciu wiadomości SMS.
-             
-             Usuń komentarz z następującego bloku po skonfigurowaniu uwierzytelniania dwuskładnikowego
+                   Numery telefonów mogą być używane jako drugi składnik w systemach uwierzytelniania dwuskładnikowego.
+
+                Zobacz <a href="https://go.microsoft.com/fwlink/?LinkId=403804">ten artykuł</a>,
+                           aby uzyskać szczegółowe informacje na temat konfigurowania tej aplikacji ASP.NET pod kątem obsługi uwierzytelniania dwuskładnikowego przy użyciu wiadomości SMS.
+
+                Usuń komentarz z następującego bloku po skonfigurowaniu uwierzytelniania dwuskładnikowego
             *@
-            @*  
+            @*
                 <dt>Numer telefonu:</dt>
                 <dd>
                     @(Model.PhoneNumber ?? "None")
@@ -61,7 +75,7 @@
             <dd>
                 <p>
                     Nie skonfigurowano dostawców uwierzytelniania dwuetapowego. Zobacz <a href="https://go.microsoft.com/fwlink/?LinkId=403804">ten artykuł</a>,
-                            aby uzyskać szczegółowe informacje na temat konfigurowania aplikacji ASP.NET do obsługi uwierzytelniania dwuetapowego.
+                    aby uzyskać szczegółowe informacje na temat konfigurowania aplikacji ASP.NET do obsługi uwierzytelniania dwuetapowego.
                 </p>
                 @*@if (Model.TwoFactor)
                     {
@@ -86,4 +100,4 @@
             </dd>
         </dl>
     </div>
-</main>
+</main>-->

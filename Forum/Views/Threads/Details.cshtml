@@ -4,6 +4,9 @@
 @{
     ViewBag.Title = Model.Title;
     Model.UserName = Model.UserName.Split('@')[0];
+    var currentPage = ViewBag.CurrentPage ?? 1;
+    var totalPages = ViewBag.TotalPages ?? 1;
+    var pageSize = ViewBag.PageSize ?? 10;
     var currentUserId = User.Identity.GetUserId();
     bool isAuthor = Model.UserId == currentUserId;
     var errorMessage = TempData["ErrorMessage"] as string;
@@ -17,7 +20,7 @@
         <h2>
             Wiadomości @using (Html.BeginForm("SearchMessages", "Threads", FormMethod.Get, new { @class = "d-flex" }))
             {
-                @Html.Hidden("threadId", Model.Id) <!-- Przekazuje ID wątku -->
+                @Html.Hidden("threadId", Model.Id)
                 <input type="text" name="query" class="form-control me-2"
                        placeholder="Wyszukaj w wiadomościach..."
                        style="width: 300px; display: inline-block; margin-right: 10px;" />
@@ -40,6 +43,16 @@
                 <p>@message.Content</p>
             </div><hr />
         }
+
+        <div class="pagination">
+            @for (int i = 1; i <= totalPages; i++)
+            {
+            <a href="@Url.Action("Details", new { id = Model.Id, page = i })"
+               class="@(i == currentPage ? "btn btn-secondary active" : "btn btn-secondary")">
+                @i
+            </a>
+            }
+        </div>
 
         @if (User.Identity.IsAuthenticated)
         {

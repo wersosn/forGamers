@@ -260,6 +260,10 @@
     <Compile Include="Migrations\202501161141521_przypieteWatki.designer.cs">
       <DependentUpon>202501161141521_przypieteWatki.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202501161217144_userPreferences.cs" />
+    <Compile Include="Migrations\202501161217144_userPreferences.designer.cs">
+      <DependentUpon>202501161217144_userPreferences.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -272,6 +276,7 @@
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Notice.cs" />
     <Compile Include="Models\Thread.cs" />
+    <Compile Include="Models\UserPreferences.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -462,6 +467,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202501161141521_przypieteWatki.resx">
       <DependentUpon>202501161141521_przypieteWatki.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202501161217144_userPreferences.resx">
+      <DependentUpon>202501161217144_userPreferences.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
