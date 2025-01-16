@@ -65,11 +65,11 @@ namespace Forum.Controllers
                     existingThread.Title = thread.Title;
                     existingThread.Content = thread.Content;
                     existingThread.ForumId = forumId;
+                    existingThread.isPinned = thread.isPinned;
                     db.SaveChanges();
                     return RedirectToAction("Index", "Home");
                 }
             }
-
             ViewBag.Forums = db.Forums.ToList();
             return View(thread);
         }

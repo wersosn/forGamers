@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<Forum.Models.Thread>
 @{
     ViewData["Title"] = "Strona główna";
+    var pinnedThreads = ViewBag.PinnedThreads as List<Forum.Models.Thread>;
 }
 <link rel="stylesheet" href="~/Content/Styles/buttons.css" />
 <link rel="stylesheet" href="~/Content/site.css" />
@@ -51,9 +52,9 @@
 
     <div class="content">
         <div class="posts-section">
-            <h2>Ogłoszenia Administratora</h2>
+            <h2>Ogłoszenia administratora</h2>
             <div class="posts-grid admin-posts">
-                @if (ViewBag.Notices != null && ((List<Forum.Models.Notice>)ViewBag.Notices).Any())
+                @if (ViewBag.Notices != null && ((List<Forum.Models.Thread>)ViewBag.PinnedThreads).Any())
                 {
                     foreach (var notice in (List<Forum.Models.Notice>)ViewBag.Notices)
                     {
@@ -69,7 +70,28 @@
                 }
             </div>
             <hr>
-            <h2>Najnowsze Wątki Użytkowników</h2>
+            <h2>Przypięte wątki</h2>
+            <div class="posts-grid admin-posts">
+                @if (pinnedThreads != null && pinnedThreads.Any())
+                {
+                    foreach (var thread in pinnedThreads)
+                    {
+                        <div class="post admin-post" onclick="location.href='@Url.Action("Details", "Threads", new { id = thread.Id })'">
+                            <h4>@thread.Title</h4>
+                            <p>@thread.Content</p>
+                            <p>
+                                <small>Odsłony: @thread.Views, Odpowiedzi: @thread.Messages.Count()</small>
+                            </p>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>Brak przypiętych wątków.</p>
+                }
+            </div>
+            <hr />
+            <h2>Najnowsze wątki użytkowników</h2>
             <div class="posts-grid user-posts">
                 @if (Model != null && Model.Any())
                 {

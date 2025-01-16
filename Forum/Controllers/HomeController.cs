@@ -15,6 +15,7 @@ namespace Forum.Controllers
         {
             var notices = db.Notices.OrderByDescending(notice => notice.CreatedAt).Take(3).ToList();
             var threads = db.Threads.ToList();
+            var pinnedThreads = db.Threads.Where(t => t.isPinned).OrderByDescending(t => t.CreatedAt).Take(3).ToList();
             var categories = db.Categories.ToList();
             var numberOfUsers = db.Users.Count();
             var numberOfThreads = db.Threads.Count();
@@ -32,6 +33,7 @@ namespace Forum.Controllers
             ViewBag.NumberOfMessages = numberOfMessages;
             ViewBag.Categories = categories;
             ViewBag.ThreadStatistics = threadStatistics;
+            ViewBag.PinnedThreads = pinnedThreads;
             return View(threads);
         }
 

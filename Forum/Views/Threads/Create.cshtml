@@ -7,30 +7,38 @@
 <body>
     <main class="main-container-2">
         <div class="main">
-                <h2>Stwórz wątek</h2>
-                <hr />
-                @using (Html.BeginForm())
+            <h2>Stwórz wątek</h2>
+            <hr />
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Title, "Tytuł")
+                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Content, "Treść")
+                    @Html.TextAreaFor(m => m.Content, new { @class = "form-control", rows = 5 })
+                    @Html.ValidationMessageFor(m => m.Content, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Wybierz forum")
+                    @Html.DropDownList("ForumId", new SelectList(ViewBag.Forums, "Id", "Name"), "Wybierz forum", new { @class = "form-control list" })
+                </div>
+
+                if (User.IsInRole("admin"))
                 {
-                    @Html.AntiForgeryToken()
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Title, "Tytuł")
-                        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.isPinned)
+                        @Html.CheckBoxFor(model => model.isPinned)
                     </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Content, "Treść")
-                        @Html.TextAreaFor(m => m.Content, new { @class = "form-control", rows = 5 })
-                        @Html.ValidationMessageFor(m => m.Content, "", new { @class = "text-danger" })
-                    </div>
-
-                    <div class="form-group">
-                        @Html.Label("Wybierz forum")
-                        @Html.DropDownList("ForumId", new SelectList(ViewBag.Forums, "Id", "Name"), "Wybierz forum", new { @class = "form-control list" })
-                    </div>
-
-                    <button type="submit" class="btn-create">Dodaj Wątek</button>
                 }
+
+                <button type="submit" class="btn-create">Dodaj Wątek</button>
+            }
         </div>
     </main>
 </body>

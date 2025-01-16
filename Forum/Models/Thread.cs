@@ -26,6 +26,7 @@ namespace Forum.Models
         public Forum Forum { get; set; }
         public virtual ICollection<Message> Messages { get; set; }
 
-        public int Views {  get; set; }
+        public int Views { get; set; }
+        public bool isPinned { get; set; }
     }
 }
