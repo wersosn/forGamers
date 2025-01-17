@@ -1,6 +1,6 @@
 ﻿@model Forum.Models.Thread
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Tworzenie wątku";
 }
 
 <link rel="stylesheet" href="~/Content/Styles/threads.css" />
@@ -36,8 +36,9 @@
                         @Html.CheckBoxFor(model => model.isPinned)
                     </div>
                 }
-
-                <button type="submit" class="btn-create">Dodaj Wątek</button>
+                <div class="button-container">
+                    <button type="submit" class="btn-cust">Dodaj Wątek</button>
+                </div>
             }
         </div>
     </main>

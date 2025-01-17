@@ -1,13 +1,23 @@
 ﻿@model Forum.Models.Notice
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.Title;
 }
-
-<div>
-    <h4>@Model.Title</h4>
-    <p>@Model.Content</p>
-    <small>@Model.CreatedAt.ToString("dd-MM-yyyy HH:mm")</small>
+<link rel="stylesheet" href="~/Content/Styles/threads.css" />
+<div class="main-content">
+    <div class="main">
+        <h2><strong>@Model.Title</strong></h2>
+        <p style="text-align:center;"><i><small>@Model.CreatedAt.ToString("dd-MM-yyyy HH:mm")</small></i></p><hr />
+        <p>@Model.Content</p>
+        @if (User.IsInRole("admin"))
+        {
+            <div class="button-container">
+                @Html.ActionLink("Edytuj", "Edit", new { id = Model.Id }, new { @class = "btn-cust", style = "text-decoration:none;" })
+                @Html.ActionLink("Usuń", "Delete", new { id = Model.Id }, new { @class = "btn-cust", style = "text-decoration:none;" })
+            </div>
+            <hr />
+        }
+        <div class="button-container">
+            <a href="@Url.Action("Index", "Home")" class="btn-cust" style="text-decoration:none;">Powrót</a>
+        </div>
+    </div>
 </div>
-
-<a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Powrót do strony głównej</a>
-

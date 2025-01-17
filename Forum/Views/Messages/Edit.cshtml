@@ -8,22 +8,21 @@
 {
     <link rel="stylesheet" href="~/Content/Styles/threads.css" />
     <body>
-        <main class="main-container">
+        <main class="main-container-2">
             <div class="main">
-                <h2>Edycja Wiadomości</h2>
+                <h2>Edycja wiadomości</h2>
                 <hr />
-
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
-
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Content)
+                        @Html.LabelFor(m => m.Content, "Treść")
                         @Html.TextAreaFor(m => m.Content, new { @class = "form-control", rows = 5 })
                     </div>
-
-                    <button type="submit" class="btn-create" style="margin-left: -20px;">Zapisz zmiany</button>
-                    @Html.ActionLink("Anuluj", "Details", "Threads", new { id = Model.ThreadId }, new { @class = "btn-create", style = "text-decoration: none;" });
+                    <div class="button-container">
+                        <button type="submit" class="btn-cust">Zapisz zmiany</button>
+                        @Html.ActionLink("Anuluj", "Details", "Threads", new { id = Model.ThreadId }, new { @class = "btn-cust", style = "text-decoration: none;" })
+                    </div>
                 }
             </div>
         </main>

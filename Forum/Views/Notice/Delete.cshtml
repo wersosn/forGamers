@@ -1,16 +1,15 @@
 ﻿@model Forum.Models.Notice
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Usuwanie ogłoszenia";
 }
 
 <link rel="stylesheet" href="~/Content/Styles/threads.css" />
 <body>
-    <main class="main-container-del">
+    <main class="main-container-2">
         <div class="main">
-            <h2>Usuwanie Ogłoszenia</h2>
-            <p style="text-align:center;font-size:20px;">Czy na pewno chcesz usunąć to ogłoszenie?</p>
+            <h2 style="text-align:center;font-size:20px;">Czy na pewno chcesz usunąć to ogłoszenie?</h2>
             <hr />
-            <div>
+            <div style="text-align:center;">
                 <h3>Tytuł: @Model.Title</h3>
                 <p>@Model.Content</p>
             </div>
@@ -18,8 +17,10 @@
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
-                <button type="submit" class="btn-custom">Usuń</button>
-                @Html.ActionLink("Anuluj", "Details", "Notice", new { id = Model.Id }, new { @class = "btn-custom", style = "text-decoration:none;padding: 7px;" })
+                <div class="button-container">
+                    <button type="submit" class="btn-cust">Usuń</button>
+                    @Html.ActionLink("Anuluj", "Details", "Notice", new { id = Model.Id }, new { @class = "btn-cust", style = "text-decoration:none;padding: 7px;" })
+                </div>
             }
         </div>
     </main>

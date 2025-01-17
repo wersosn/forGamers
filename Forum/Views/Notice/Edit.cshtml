@@ -1,24 +1,34 @@
 ﻿@model Forum.Models.Notice
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edycja ogłoszenia";
 }
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+<link rel="stylesheet" href="~/Content/Styles/threads.css" />
+<body>
+    <main class="main-container-2">
+        <div class="main">
+            <h2>Edycja ogłoszenia</h2>
+            <hr />
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Title)
-        @Html.EditorFor(model => model.Title)
-        @Html.ValidationMessageFor(model => model.Title)
-    </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title, "Tytuł")
+                    @Html.TextAreaFor(model => model.Title, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Title)
+                </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Content)
-        @Html.TextAreaFor(model => model.Content, new { @class = "form-control", rows = 4 })
-        @Html.ValidationMessageFor(model => model.Content)
-    </div>
-
-    <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
-}
-
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Content, "Treść")
+                    @Html.TextAreaFor(model => model.Content, new { @class = "form-control", rows = 4 })
+                    @Html.ValidationMessageFor(model => model.Content)
+                </div>
+                
+                <div class="button-container">
+                    <button type="submit" class="btn-cust">Zapisz zmiany</button>
+                </div>            
+            }
+        </div>
+    </main>
+</body>

@@ -12,48 +12,50 @@
     var errorMessage = TempData["ErrorMessage"] as string;
 }
 <link rel="stylesheet" href="~/Content/Styles/threads.css" />
-<main class="main-content">
+<div class="main-content">
     <div class="main">
         <h2><strong>@Model.Title | @Model.UserName | @Model.Forum.Name | @Model.CreatedAt.ToString("dd/MM/yyyy")</strong></h2>
         <p>@Model.Content</p>
         <hr />
-        <h2>
-            Wiadomości @using (Html.BeginForm("SearchMessages", "Threads", FormMethod.Get, new { @class = "d-flex" }))
+        <div class="search-bar-messages">
+            @using (Html.BeginForm("SearchMessages", "Threads", FormMethod.Get, new { @class = "d-flex" }))
             {
                 @Html.Hidden("threadId", Model.Id)
                 <input type="text" name="query" class="form-control me-2"
                        placeholder="Wyszukaj w wiadomościach..."
-                       style="width: 300px; display: inline-block; margin-right: 10px;" />
-                <button type="submit" class="btn btn-primary">Szukaj</button>
-            }
-        </h2>
-        @foreach (var message in Model.Messages)
-        {
-            var userName = message.UserName.Split('@')[0];
-            <div>
-                <p>
-                    <strong>@userName</strong> | @message.CreatedAt.ToString("dd/MM/yyyy")
-                    @if (ViewBag.IsModerator || User.IsInRole("admin"))
-                    {
-                        @Html.ActionLink("Edytuj", "Edit", "Messages", new { id = message.Id }, new { @class = "btn-custom-2", style = "margin:10px;text-decoration:none;" })
-                        @Html.ActionLink("Usuń", "Delete", "Messages", new { id = message.Id }, new { @class = "btn-custom-2", style = "text-decoration:none;" })
-
-                    }
-                </p>
-                <p>@message.Content</p>
-            </div><hr />
-        }
-
-        <div class="pagination">
-            @for (int i = 1; i <= totalPages; i++)
-            {
-            <a href="@Url.Action("Details", new { id = Model.Id, page = i })"
-               class="@(i == currentPage ? "btn btn-secondary active" : "btn btn-secondary")">
-                @i
-            </a>
+                       style="width: 500px; display: inline-block; margin-right: 10px;" />
+                <button type="submit" class="btn-custom-2" style="margin-top:0;">Szukaj</button>
             }
         </div>
+        <hr />
+        @if (Model.Messages.Count > 0)
+        {
+            <h2>
+                Wiadomości
+            </h2>
+            foreach (var message in Model.Messages)
+            {
+                var userName = message.UserName.Split('@')[0];
+                <div>
+                    <p>
+                        <strong>@userName</strong> | @message.CreatedAt.ToString("dd/MM/yyyy")
+                        @if (ViewBag.IsModerator || User.IsInRole("admin"))
+                        {
+                            @Html.ActionLink("Edytuj", "Edit", "Messages", new { id = message.Id }, new { @class = "btn-custom-2", style = "margin:10px;text-decoration:none;" })
+                            @Html.ActionLink("Usuń", "Delete", "Messages", new { id = message.Id }, new { @class = "btn-custom-2", style = "text-decoration:none;" })
 
+                        }
+                    </p>
+                    <p>@message.Content</p>
+                </div>
+                <hr />
+            }
+        }
+        else
+        {
+            <h2>Brak wiadomości</h2>
+            <hr />
+        }
         @if (User.Identity.IsAuthenticated)
         {
             <h4>Dodaj wiadomość</h4>
@@ -68,18 +70,33 @@
                     @Html.TextArea("Content", new { @class = "form-control", rows = 3, placeholder = "Dodaj odpowiedź..." })
                     @Html.ValidationMessage("Content")
                 </div>
-                <button type="submit" class="btn-custom">Dodaj wiadomość</button>
+                <div class="button-container">
+                    <button type="submit" class="btn-cust">Dodaj wiadomość</button>
+                </div>
             }
             <hr />
             if (User.IsInRole("admin") || isAuthor)
             {
-                @Html.ActionLink("Edytuj", "Edit", new { id = Model.Id }, new { @class = "btn-custom", style = "margin:10px;text-decoration:none;" })
-                @Html.ActionLink("Usuń", "Delete", new { id = Model.Id }, new { @class = "btn-custom", style = "text-decoration:none;" })
+                <div class="button-container">
+                    @Html.ActionLink("Edytuj", "Edit", new { id = Model.Id }, new { @class = "btn-cust", style = "text-decoration:none;" })
+                    @Html.ActionLink("Usuń", "Delete", new { id = Model.Id }, new { @class = "btn-cust", style = "text-decoration:none;" })
+                </div>
+                <hr />
             }
         }
 
+        <div class="pagination button-container">
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                <a href="@Url.Action("Details", new { id = Model.Id, page = i })"
+                   class="@(i == currentPage ? "btn-custom-active active" : "btn-custom-2")">
+                    @i
+                </a>
+            }
+        </div>
+
     </div>
-</main>
+</div>
 @if (!string.IsNullOrEmpty(errorMessage))
 {
     <script>

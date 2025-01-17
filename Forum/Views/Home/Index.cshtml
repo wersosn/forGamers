@@ -70,12 +70,12 @@
             </div>
             <hr>
             <h2>Przypięte wątki</h2>
-            <div class="posts-grid admin-posts">
+            <div class="posts-grid pinned-posts">
                 @if (pinnedThreads != null && pinnedThreads.Any())
                 {
                     foreach (var thread in pinnedThreads)
                     {
-                        <div class="post admin-post" onclick="location.href='@Url.Action("Details", "Threads", new { id = thread.Id })'">
+                        <div class="post pinned-post" onclick="location.href='@Url.Action("Details", "Threads", new { id = thread.Id })'">
                             <h4>@thread.Title</h4>
                             <p>@thread.Content</p>
                             <p>

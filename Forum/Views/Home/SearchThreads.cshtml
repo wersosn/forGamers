@@ -1,6 +1,6 @@
 ﻿@model List<Forum.Models.Thread>
 @{
-    ViewBag.Title = "SearchThreads";
+    ViewBag.Title = ViewBag.Search;
 }
 
 <link rel="stylesheet" href="~/Content/Styles/buttons.css" />
@@ -54,7 +54,7 @@
                 {
                     foreach (var thread in Model)
                     {
-                        <div class="post user-post" style="text-decoration: none; cursor: pointer;" onclick="location.href='@Url.Action("Details", "Threads", new { id = thread.Id })'">
+                        <div class="post user-post" style="text-decoration: none; cursor: pointer; min-width: 650px;" onclick="location.href='@Url.Action("Details", "Threads", new { id = thread.Id })'">
                             <h4>@thread.Title</h4>
                             <p>@thread.Content</p>
                             <p>

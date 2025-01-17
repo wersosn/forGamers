@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Forum.Models.Thread>
 @{
-    ViewBag.Title = "ForumThreads";
+    ViewBag.Title = ViewBag.ForumName;
 }
 
 <link rel="stylesheet" href="~/Content/Styles/buttons.css" />
@@ -49,12 +49,12 @@
     <div class="content">
         <div class="posts-section">
             <h2>@ViewBag.ForumName</h2>
-            <div class="posts-grid user-posts" style="min-width:300px;">
+            <div class="posts-grid user-posts">
                 @if (Model != null && Model.Any())
                 {
                     foreach (var thread in Model)
                     {
-                        <div class="post user-post" style="text-decoration: none; cursor: pointer;" onclick="location.href='@Url.Action("Details", "Threads", new { id = thread.Id })'">
+                        <div class="post user-post" style="text-decoration: none; cursor: pointer; min-width: 650px;" onclick="location.href='@Url.Action("Details", "Threads", new { id = thread.Id })'">
                             <h4>@thread.Title</h4>
                             <p>@thread.Content</p>
                             <p>

@@ -37,7 +37,7 @@ body {
     border: none;
     border-radius: 3px;
     font-size: 1em;
-    color: #333;
+    color: #333333;
     padding: 5px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
@@ -112,14 +112,14 @@ body {
 }
 
 /* Sekcja administracji */
-.admin-posts {
+.admin-posts, .pinned-posts {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     text-decoration: none;
 }
 
-.admin-post {
+.admin-post, .pinned-post {
     flex: 1 1 30%;
     background-color: #252330;
     padding: 15px;
@@ -128,10 +128,16 @@ body {
     text-decoration: none;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
 }
-    .admin-post:hover {
+    .admin-post:hover, .pinned-post:hover {
         box-shadow: initial;
         cursor: pointer;
     }
+
+.pinned-post {
+    background-color: #423F49;
+    width: 100%;
+    display: block;
+}
 
 hr {
     border: 1px solid #ccc;
@@ -168,6 +174,3 @@ hr {
         background-color: #141415;
         color: white;
     }
-
-
-/* Animacje */
