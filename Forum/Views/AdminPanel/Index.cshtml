@@ -3,8 +3,8 @@
 @{
     ViewBag.Title = "Panel Administratora";
 }
-
-<h2>Panel Administratora</h2>
+<link rel="stylesheet" href="~/Content/Styles/threads.css" />
+<h1>Panel Administratora</h1>
 <hr />
 <h3>Zarządzanie użytkownikami</h3>
 <table class="table">
@@ -36,9 +36,8 @@
                     }
                 </td>
                 <td>
-                    @Html.ActionLink("Edytuj", "EditUser", new { id = user.Id }) |
-                    @Html.ActionLink("Usuń", "DeleteUser", new { id = user.Id },
-                        new { onclick = "return confirm('Czy na pewno chcesz usunąć tego użytkownika?');" })
+                    <button class="btn-cust" onclick="window.location='@Url.Action("EditUser", new { id = user.Id })'">Edytuj</button> |
+                    <button class="btn-cust" onclick="return confirm('Czy na pewno chcesz usunąć tego użytkownika?') ? window.location='@Url.Action("DeleteUser", new { id = user.Id })' : false;">Usuń</button>
                 </td>
             </tr>
         }
@@ -59,14 +58,14 @@
             <tr>
                 <td>@category.Name</td>
                 <td>
-                    <a href="@Url.Action("EditCategory", "Categories", new { id = category.Id })">Edytuj</a> |
-                    <a href="@Url.Action("DeleteCategory", "Categories", new { id = category.Id })" onclick="return confirm('Czy na pewno chcesz usunąć tę kategorię?');">Usuń</a>
+                    <a class="btn-cust" style="text-decoration:none;" href="@Url.Action("EditCategory", "Categories", new { id = category.Id })">Edytuj</a> |
+                    <a class="btn-cust" style="text-decoration:none;" href="@Url.Action("DeleteCategory", "Categories", new { id = category.Id })" onclick="return confirm('Czy na pewno chcesz usunąć tę kategorię?');">Usuń</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-<a href="@Url.Action("CreateCategory", "Categories")" class="btn btn-success">Dodaj kategorię</a>
+<a href="@Url.Action("CreateCategory", "Categories")" class="btn-cust" style="text-decoration:none;">Dodaj kategorię</a>
 
 <hr />
 <h3>Fora</h3>
@@ -83,15 +82,15 @@
             <tr>
                 <td>@forum.Name</td>
                 <td>
-                    <a href="@Url.Action("ManageModerators", "Forums", new { forumId = forum.Id })">Zarządzaj moderatorami</a> |
-                    <a href="@Url.Action("EditForum", "Forums", new { id = forum.Id })">Edytuj</a> |
-                    <a href="@Url.Action("DeleteForum", "Forums", new { id = forum.Id })" onclick="return confirm('Czy na pewno chcesz usunąć to forum?');">Usuń</a>
+                    <a class="btn-cust" style="text-decoration:none;" href="@Url.Action("ManageModerators", "Forums", new { forumId = forum.Id })">Zarządzaj moderatorami</a> |
+                    <a class="btn-cust" style="text-decoration:none;" href="@Url.Action("EditForum", "Forums", new { id = forum.Id })">Edytuj</a> |
+                    <a class="btn-cust" style="text-decoration:none;" href="@Url.Action("DeleteForum", "Forums", new { id = forum.Id })" onclick="return confirm('Czy na pewno chcesz usunąć to forum?');">Usuń</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-<a href="@Url.Action("CreateForum", "Forums")" class="btn btn-success">Dodaj forum</a>
+<a href="@Url.Action("CreateForum", "Forums")" class="btn-cust" style="text-decoration:none;">Dodaj forum</a>
 
 <hr />
 <h3>Wiadomości</h3>
@@ -112,8 +111,8 @@
                 <td>@message.Content</td>
                 <td>@message.UserName</td>
                 <td>
-                    <a href="@Url.Action("Edit", "Messages", new { id = message.Id })">Edytuj</a> |
-                    <a href="@Url.Action("Delete", "Messages", new { id = message.Id })" onclick="return confirm('Czy na pewno chcesz usunąć tą wiadomość');">Usuń</a>
+                    <a class="btn-cust" style="text-decoration:none;" href="@Url.Action("Edit", "Messages", new { id = message.Id })">Edytuj</a> |
+                    <a class="btn-cust" style="text-decoration:none;" href="@Url.Action("Delete", "Messages", new { id = message.Id })" onclick="return confirm('Czy na pewno chcesz usunąć tą wiadomość');">Usuń</a>
                 </td>
             </tr>
         }
@@ -121,4 +120,4 @@
 </table>
 
 <hr />
-<h3>Słownik słów zakazanych: <a href="@Url.Action("ForbiddenWords", "AdminPanel")">Słownik</a></h3>
+<h3>Słownik słów zakazanych: <a class="btn-cust" style="text-decoration:none;" href="@Url.Action("ForbiddenWords", "AdminPanel")">Słownik</a></h3>

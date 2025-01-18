@@ -1,20 +1,31 @@
 ﻿@model Forum.Models.ManageModerators
-
-<h2>Zarządzaj moderatorami dla forum: @Model.Forum.Name</h2>
-
-@using (Html.BeginForm())
-{
-    <div>
-        @foreach (var user in Model.AllUsers)
-        {
-            <div>
-                <label>
-                    <input type="checkbox" name="selectedModerators" value="@user.Id"
-                           @(Model.AssignedModeratorIds.Contains(user.Id) ? "checked=\"checked\"" : "") />
-                    @user.UserName
-                </label>
-            </div>
-        }
-    </div>
-    <button type="submit" class="btn btn-primary">Zapisz</button>
+@{
+    ViewBag.Title = "Zarządzaj moderatorami";
 }
+<link rel="stylesheet" href="~/Content/Styles/threads.css" />
+<body>
+    <main class="main-container-2">
+        <div class="main">
+            <h2>Zarządzaj moderatorami dla forum: @Model.Forum.Name</h2>
+            <hr />
+            @using (Html.BeginForm())
+            {
+                <div class="center-section">
+                    @foreach (var user in Model.AllUsers)
+                    {
+                        <div>
+                            <label>
+                                <input type="checkbox" name="selectedModerators" value="@user.Id"
+                                       @(Model.AssignedModeratorIds.Contains(user.Id) ? "checked=\"checked\"" : "") />
+                                @user.UserName
+                            </label>
+                        </div>
+                    }
+                </div>
+                <div class="button-container">
+                    <button type="submit" class="btn-cust">Zapisz</button>
+                </div>
+            }
+        </div>
+    </main>
+</body>

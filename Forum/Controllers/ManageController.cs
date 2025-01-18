@@ -72,7 +72,7 @@ namespace Forum.Controllers
                 preference.MessagesPerPage = messagesPerPage;
             }
             db.SaveChanges();
-            TempData["Success"] = "Liczba wiadomości na stronie została zaktualizowana.";
+            TempData["Success"] = "Liczba wiadomości na stronę została zaktualizowana.";
             return RedirectToAction("Index", "Manage");
         }
 
@@ -91,6 +91,13 @@ namespace Forum.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+            var user = db.Users.FirstOrDefault(u => u.Id == userId);
+            var userThreads = db.Threads.Where(t => t.UserId == userId).Count();
+            var userMessages  = db.Messages.Where(m => m.UserId == userId).Count();
+            ViewBag.User = user;
+            ViewBag.Threads = userThreads;
+            ViewBag.Messages = userMessages;
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),

@@ -3,12 +3,11 @@
     ViewBag.Title = "AddForbiddenWord";
 }
 
-<link rel="stylesheet" href="~/Content/Styles/buttons.css" />
+<link rel="stylesheet" href="~/Content/Styles/threads.css" />
 <body>
-    <main class="main-container">
+    <main class="main-container-2">
         <div class="main">
-            <h2>Dodaj Zakazane Słowo</h2>
-            <p style="text-align:center;font-size:20px;">Wprowadź słowo, które chcesz dodać do listy zakazanych słów.</p>
+            <h2>Wprowadź słowo, które chcesz dodać do listy zakazanych słów:</h2>
             <hr />
 
             @using (Html.BeginForm())
@@ -20,8 +19,10 @@
                     <input type="text" id="word" name="word" class="form-control" required />
                 </div>
 
-                <button type="submit" class="btn-custom">Dodaj Słowo</button>
-                <a href="@Url.Action("ForbiddenWords", "AdminPanel")" class="btn-custom" style="text-decoration:none;padding: 7px;">Anuluj</a>
+                <div class="button-container">
+                    <button type="submit" class="btn-cust">Dodaj słowo</button>
+                    <a href="@Url.Action("ForbiddenWords", "AdminPanel")" class="btn-cust" style="text-decoration:none;">Anuluj</a>
+                </div>
             }
         </div>
     </main>

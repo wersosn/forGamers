@@ -1,0 +1,24 @@
+﻿.table-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+table {
+    width: 80%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    border-radius: 8px;
+}
+
+th {
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+td {
+    text-align: center;
+    padding: 10px;
+}

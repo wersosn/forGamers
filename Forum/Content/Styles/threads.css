@@ -13,7 +13,7 @@
     margin: 0 auto;
     color: #edeef0;
     width: 75vw;
-    accent-color: #5d5f64;
+    accent-color: #503873;
 }
 
 .main-container-del {
@@ -157,5 +157,13 @@
     }
 
 .list {
-    accent-color: #5d5f64;
+    accent-color: #503873;
+}
+
+.center-section {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 8px;
+    padding: 10px;
 }

@@ -149,15 +149,7 @@ hr {
     display: none;
 }
 
-/* Stylizacja footer */
-.language-switch {
-    cursor: pointer;
-}
 
-    .language-switch:hover {
-        text-decoration: underline;
-        color: #4d2f76;
-    }
 
 /* Stylizacja paska wyszukiwania */
 .search-bar {
