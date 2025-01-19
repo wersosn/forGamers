@@ -59,7 +59,7 @@
                     {
                         <div class="post admin-post" onclick="location.href='@Url.Action("Details", "Notice", new { id = notice.Id })'">
                             <h4>@notice.Title</h4>
-                            <p>@notice.Content</p>
+                            <p> @(notice.Content.Length > 50 ? notice.Content.Substring(0, 50) + "..." : notice.Content)</p>
                         </div>
                     }
                 }
@@ -77,7 +77,7 @@
                     {
                         <div class="post pinned-post" onclick="location.href='@Url.Action("Details", "Threads", new { id = thread.Id })'">
                             <h4>@thread.Title</h4>
-                            <p>@thread.Content</p>
+                            <p>@(thread.Content.Length > 50 ? thread.Content.Substring(0, 50) + "..." : thread.Content)</p>
                             <p>
                                 <small>Odsłony: @thread.Views, Odpowiedzi: @thread.Messages.Count()</small>
                             </p>
@@ -98,7 +98,7 @@
                     {
                         <div class="post user-post" style="text-decoration: none; cursor: pointer;" onclick="location.href='@Url.Action("Details", "Threads", new { id = thread.Id })'">
                             <h4>@thread.Title</h4>
-                            <p>@thread.Content</p>
+                            <p>@(thread.Content.Length > 50 ? thread.Content.Substring(0, 50) + "..." : thread.Content)</p>
                             <p>
                                 <small>Odsłony: @thread.Views, Odpowiedzi: @thread.Messages.Count()</small>
                             </p>
