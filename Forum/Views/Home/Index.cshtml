@@ -53,7 +53,7 @@
         <div class="posts-section">
             <h2>Ogłoszenia administratora</h2>
             <div class="posts-grid admin-posts">
-                @if (ViewBag.Notices != null && ((List<Forum.Models.Thread>)ViewBag.PinnedThreads).Any())
+                @if (ViewBag.Notices != null)
                 {
                     foreach (var notice in (List<Forum.Models.Notice>)ViewBag.Notices)
                     {

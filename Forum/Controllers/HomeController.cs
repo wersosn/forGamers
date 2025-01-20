@@ -86,6 +86,7 @@ namespace Forum.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            var threadsList = db.Threads.ToList();
             var categories = db.Categories.ToList();
             var numberOfUsers = db.Users.Count();
             var numberOfThreads = db.Threads.Count();
@@ -107,7 +108,7 @@ namespace Forum.Controllers
             ViewBag.Search = query;
 
             var keywords = query.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            var threadsQuery = db.Threads.AsQueryable();
+            var threadsQuery = threadsList.AsQueryable();
 
             foreach (var keyword in keywords)
             {

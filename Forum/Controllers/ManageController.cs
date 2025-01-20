@@ -94,9 +94,11 @@ namespace Forum.Controllers
             var user = db.Users.FirstOrDefault(u => u.Id == userId);
             var userThreads = db.Threads.Where(t => t.UserId == userId).Count();
             var userMessages  = db.Messages.Where(m => m.UserId == userId).Count();
+            var userPreference = db.UserPreferences.FirstOrDefault(u => u.UserId == userId);
             ViewBag.User = user;
             ViewBag.Threads = userThreads;
             ViewBag.Messages = userMessages;
+            ViewBag.Pages = userPreference?.MessagesPerPage ?? 5;
 
             var model = new IndexViewModel
             {

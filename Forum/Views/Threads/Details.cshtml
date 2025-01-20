@@ -67,7 +67,7 @@
                 @Html.Hidden("threadId", Model.Id)
 
                 <div class="form-group">
-                    @Html.TextArea("Content", new { @class = "form-control", rows = 3, placeholder = "Dodaj odpowiedź..." })
+                    @Html.TextArea("Content", "", new { @class = "form-control", rows = 3, placeholder = "Dodaj odpowiedź..." })
                     @Html.ValidationMessage("Content")
                 </div>
                 <div class="button-container">

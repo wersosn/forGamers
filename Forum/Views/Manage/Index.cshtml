@@ -16,7 +16,7 @@
             <form action="/Manage/UpdateMessagesPerPage" method="post">
                 @Html.AntiForgeryToken()
                 <label for="messagesPerPage">Liczba wiadomości na stronę (od 1 do 50):</label>
-                <input style="border-radius:8px;" type="number" id="messagesPerPage" name="messagesPerPage" min="1" max="50" required />
+                <input style="border-radius:8px;" type="number" id="messagesPerPage" name="messagesPerPage" min="1" max="50" placeholder="@ViewBag.Pages" required />
                 <button type="submit" class="btn-cust">Zapisz</button>
             </form>
         </div>
