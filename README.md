@@ -4,7 +4,6 @@
 - [Functionalitites](#functionalities)
 - [Tech stack](#tech-stack)
 - [How to use](#how-to-use)
-- [Live preview](#live-preview)
 
 ## Project details
 
@@ -22,5 +21,3 @@ To run this project, clone this repository:
 ```bash
 git clone https://github.com/wersosn/forGamers
 ```
-
-## Live preview
