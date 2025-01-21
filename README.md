@@ -22,7 +22,7 @@ Tematem projektu jest internetowe forum dyskusyjne. Za jego pomocą internauci m
 - C#
 - ASP .Net Framework
 - Entity Framework
-- - Identity Framework
+- Identity Framework
 - HTML, CSS, JavaScript
 - LocalDB (SQL Server Express)
 
