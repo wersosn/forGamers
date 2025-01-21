@@ -7,7 +7,7 @@ Version [PL](#forum-dyskusyjne-forGamers) | [ENG](#discussing-forum-forGamers)
 - [Instrukcja użycia](instrukcja-użycia)
 
 ## Opis projektu
-Tematem projektu jest internetowe forum dyskusyjne. Za jego pomocą internauci mogą tworzyć własne wątki lub dopisywać wiadomości do wątków istniejących.
+Tematem projektu jest internetowe forum dyskusyjne dla graczy. Za jego pomocą internauci mogą tworzyć własne wątki lub dopisywać wiadomości do wątków istniejących.
 
 ## Funkcjonalności
 - Tworzenie wątków i dopisywanie odpowiedzi do istniejących;
@@ -40,7 +40,7 @@ git clone https://github.com/wersosn/forGamers
 - [How to use](#how-to-use)
 
 ## Project details
-The topic of the project is an online discussion forum. Using it, internet users can create their own threads or add messages to existing threads.
+The topic of the project is an online discussion forum for gamers. Using it, internet users can create their own threads or add messages to existing threads.
 
 ## Functionalities
 - Creating threads and adding replies to existing ones;
