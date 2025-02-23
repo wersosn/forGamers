@@ -40,7 +40,7 @@ git clone https://github.com/wersosn/forGamers
 - [How to use](#how-to-use)
 
 ## Project details
-The topic of the project is an online discussion forum for gamers. Using it, internet users can create their own threads or add messages to existing threads.
+The topic of the project is an online discussion forum for gamers. Using it, users can create their own threads or add messages to existing threads.
 
 ## Functionalities
 - Creating threads and adding replies to existing ones;
