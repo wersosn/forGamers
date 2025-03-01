@@ -29,7 +29,7 @@ Tematem projektu jest internetowe forum dyskusyjne dla graczy. Za jego pomocą i
 ## Instrukcja użycia
 Aby uruchomić ten projekt musisz sklonować to repozytorium i następnie otworzyć plik Forum.sln
 ```bash
-git clone https://github.com/wersosn/forGamers
+git clone https://github.com/wersosn/forGamers.git
 ```
 ---
 # Discussing forum forGamers
@@ -62,5 +62,5 @@ The topic of the project is an online discussion forum for gamers. Using it, use
 ## How to use
 To run this project, clone this repository and then open the file Forum.sln
 ```bash
-git clone https://github.com/wersosn/forGamers
+git clone https://github.com/wersosn/forGamers.git
 ```
